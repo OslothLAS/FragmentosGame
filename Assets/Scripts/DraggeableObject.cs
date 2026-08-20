@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -41,14 +42,65 @@ public class DraggableObject2D : MonoBehaviour
     private void OnMouseUp()
     {
         _isDragging = false;
-        // El script de arrastre ya no hace nada más aquí. 
-        // Toda la lógica de grilla, encaje y swap la maneja el CuadradoParentable por su cuenta.
+
+        // 1. Buscamos al objeto hijo que lleva el cuadrado
+        Transform miCuadrado = transform.Find("CuadradoParentable");
+
+        if (miCuadrado != null)
+        {
+            Collider2D miCollider = miCuadrado.GetComponent<Collider2D>();
+
+            if (miCollider != null)
+            {
+                Bounds misBounds = miCollider.bounds;
+                float areaPropia = misBounds.size.x * misBounds.size.y;
+
+                // 2. Preparamos una lista y un filtro para ver qué está tocando
+                List<Collider2D> contactados = new List<Collider2D>();
+                ContactFilter2D filtro = new ContactFilter2D().NoFilter();
+
+                int cantidad = miCollider.Overlap(filtro, contactados);
+
+                // 3. Revisamos los objetos contactados y calculamos su superposición
+                for (int i = 0; i < cantidad; i++)
+                {
+                    GameObject otroObjeto = contactados[i].gameObject;
+
+                    // Evitamos evaluarnos a nosotros mismos si el collider nos detecta
+                    if (otroObjeto == miCuadrado.gameObject) continue;
+
+                    Bounds otroBounds = contactados[i].bounds;
+
+                    float xMin = Mathf.Max(misBounds.min.x, otroBounds.min.x);
+                    float xMax = Mathf.Min(misBounds.max.x, otroBounds.max.x);
+                    float yMin = Mathf.Max(misBounds.min.y, otroBounds.min.y);
+                    float yMax = Mathf.Min(misBounds.max.y, otroBounds.max.y);
+
+                    if (xMax > xMin && yMax > yMin)
+                    {
+                        float areaInterseccion = (xMax - xMin) * (yMax - yMin);
+                        float porcentaje = areaInterseccion / areaPropia;
+
+                        // Si la superposición es del 70% (0.7f) o mayor
+                        if (porcentaje >= 0.7f)
+                        {
+                            Debug.Log($"¡Superposición del {porcentaje * 100}% con el objeto: {otroObjeto.name}!");
+
+                            // Acá podés disparar la lógica que necesites con el objeto detectado
+
+                            break; // Salimos del loop para registrar el primero que cumpla
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void FixedUpdate()
     {
         if (_isDragging)
         {
+            // Movemos hacia el objetivo a una velocidad controlada sin saltos infinitos
             Vector2 newPos = Vector2.MoveTowards(_rb.position, _targetPosition, _maxSpeed * Time.fixedDeltaTime);
             _rb.MovePosition(newPos);
         }
