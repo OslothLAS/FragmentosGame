@@ -63,6 +63,7 @@
     <Compile Include="Assets\carpeta gohan\scripts\LogicaMeta.cs" />
     <Compile Include="Assets\CarpetaOsmar\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\InvertedGravityController.cs" />
+    <Compile Include="Assets\carpeta gohan\scripts\SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\CarpetaOsmar\StencilMask.shader" />
