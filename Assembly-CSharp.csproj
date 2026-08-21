@@ -59,6 +59,7 @@
     <Compile Include="Assets\carpeta gohan\scripts\LogicaMoneda.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\DetectorCelda.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\DraggeableObject.cs" />
+    <Compile Include="Assets\carpeta gohan\scripts\LogicaPerder.cs" />
     <Compile Include="Assets\carpeta gohan\scripts\LogicaMeta.cs" />
     <Compile Include="Assets\CarpetaOsmar\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\InvertedGravityController.cs" />

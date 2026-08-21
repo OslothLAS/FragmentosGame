@@ -8,5 +8,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/CarpetaOsmar/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/carpeta gohan/scenas/pruebaScrptsGohan.unity
+    guid: ea61085917d848e468b24f11cb408179
+  - enabled: 1
+    path: Assets/carpeta gohan/scenas/scenaSinNada.unity
+    guid: 555a8869ab9cb5a43bf7e7e0946818c1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
