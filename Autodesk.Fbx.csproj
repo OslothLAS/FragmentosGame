@@ -18,7 +18,7 @@
     <LangVersion>9.0</LangVersion>
     <RootNamespace></RootNamespace>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Autodesk.Fbx</AssemblyName>
     <TargetFramework>netstandard2.1</TargetFramework>
     <BaseDirectory>.</BaseDirectory>
   </PropertyGroup>
@@ -53,21 +53,125 @@
     <Analyzer Include="C:\Users\Usuario\Downloads\importante\6000.5.9f1\6000.5.9f1\Editor\Data\BCLExtensions\TargetingPacks\netstandard2.1\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CarpetaOsmar\Scripts\PlyerController2D.cs" />
-    <Compile Include="Assets\carpeta gohan\scripts\GameManager.cs" />
-    <Compile Include="Assets\CarpetaOsmar\Scripts\ArrastrarPiezaXZ.cs" />
-    <Compile Include="Assets\carpeta gohan\scripts\LogicaMoneda.cs" />
-    <Compile Include="Assets\CarpetaOsmar\Scripts\DetectorCelda.cs" />
-    <Compile Include="Assets\CarpetaOsmar\Scripts\DraggeableObject.cs" />
-    <Compile Include="Assets\carpeta gohan\scripts\LogicaMeta.cs" />
-    <Compile Include="Assets\CarpetaOsmar\TutorialInfo\Scripts\Readme.cs" />
-    <Compile Include="Assets\CarpetaOsmar\Scripts\InvertedGravityController.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxNull.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxTimeSpan.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxIOBase.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementArrayTemplateFbxSurfaceMaterial.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyEBlendMode.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxDocument.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxNodeAttribute.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyString.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementArrayTemplateFbxVector4.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxAnimCurveKey.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyEntryView.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxIOPluginRegistry.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyEProjectionType.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxIOSettings.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementTemplateFbxColor.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxEmitter.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyFlags.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxGeometryBase.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyFloat.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxMatrix.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxDeformer.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerContainer.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementTemplateFbxVector2.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxCamera.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxDataType.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxDocumentInfo.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyEGateFit.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\EFbxType.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxConstraintAim.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxAnimLayer.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxCollection.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxSurfacePhong.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxConstraintRotation.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyELightType.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxAxisSystem.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxSurfaceMaterial.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxStatus.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPose.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxSharpProgressCallback.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxShape.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxAnimCurveFilterUnroll.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxAnimCurveBase.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxBlendShapeChannel.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyBool.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementNormal.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxTexture.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxImplementation.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxSurfaceLambert.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxSkeleton.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyInt.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyNullELook.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxNode.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxSkin.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxNurbsCurve.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxScene.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxImporter.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxExporter.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyDouble3.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxFileTexture.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxProperty.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxConstraint.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLight.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxSemanticEntryView.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementArrayTemplateFbxColor.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLimits.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxEntryView.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyMarkerELook.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxConstraintPosition.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxObject.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementArrayTemplateInt.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxCluster.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxMesh.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxBindingTableBase.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxEuler.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxConstraintParent.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxAnimCurveDef.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxManager.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementArrayTemplateFbxVector2.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementUV.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\EFbxMemoryClearMode.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElement.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxSystemUnit.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxAMatrix.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxAnimStack.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementArray.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxConstraintScale.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyEAreaLightShape.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementBinormal.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementTemplateFbxVector4.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyEDecayType.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxIOFileHeaderInfo.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementTangent.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementTemplateFbxSurfaceMaterial.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxDouble4x4.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\NativeMethods.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxMarker.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyEInheritType.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxQuaternion.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\Globals.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxTransform.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxDoubleTemplates.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementVertexColor.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxBindingTable.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyEWrapMode.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxSubDeformer.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxTime.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxGlobalSettings.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxBindingTableEntry.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxBlendShape.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxGeometry.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxAnimCurve.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxPropertyDouble.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayer.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxConnection.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxLayerElementMaterial.cs" />
+    <Compile Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Scripts\FbxAnimCurveNode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\CarpetaOsmar\StencilMask.shader" />
-    <None Include="Assets\CarpetaOsmar\StencilCharacter.shader" />
-    <None Include="Assets\CarpetaOsmar\SpriteStencilCharacter.shader" />
-    <None Include="Assets\CarpetaOsmar\SpriteStencilMask.shader" />
+    <None Include="Library\PackageCache\com.autodesk.fbx@90432ec06ab5\Runtime\Autodesk.Fbx.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -650,16 +754,64 @@
       <HintPath>C:\Users\Usuario\Downloads\importante\6000.5.9f1\6000.5.9f1\Editor\Data\Managed\UnityEngine\UnityEditor.XRModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>C:\Users\Usuario\Downloads\importante\6000.5.9f1\6000.5.9f1\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+      <HintPath>C:\Users\Usuario\Downloads\importante\6000.5.9f1\6000.5.9f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="TextMateSharpPlastic">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@4628d2ba6ea4\Lib\Editor\TextMateSharp\TextMateSharpPlastic.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="TextMateSharpPlastic.Grammars">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@4628d2ba6ea4\Lib\Editor\TextMateSharp\TextMateSharpPlastic.Grammars.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.YamlDotNet">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@4edfcc09512f\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>Library\PackageCache\com.unity.collections@ec2c217e4cb2\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Plastic.Antlr3.Runtime">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@4628d2ba6ea4\Lib\Editor\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="unityplastic">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@4628d2ba6ea4\Lib\Editor\unityplastic.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="OnigwrapPlastic">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@4628d2ba6ea4\Lib\Editor\TextMateSharp\Onigwrap\OnigwrapPlastic.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@44f7d31723bd\net472\unity-custom\nunit.framework.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Plastic.Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@4628d2ba6ea4\Lib\Editor\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4netPlastic">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@4628d2ba6ea4\Lib\Editor\log4netPlastic.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.IonicZip">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@4edfcc09512f\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@4edfcc09512f\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.TextureAssets">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@4edfcc09512f\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Cecil">
@@ -1196,68 +1348,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.RenderPipelines.Core.Editor.csproj" />
-    <ProjectReference Include="UnityEditor.UI.Analytics.csproj" />
-    <ProjectReference Include="Unity.TextMeshPro.csproj" />
-    <ProjectReference Include="Unity.Rendering.LightTransport.Editor.csproj" />
-    <ProjectReference Include="Unity.AI.Navigation.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Core.ShaderLibrary.csproj" />
-    <ProjectReference Include="Unity.InputSystem.ForUI.Editor.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.SettingsProvider.Editor.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Universal.2D.Editor.Overrides.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Editor.csproj" />
-    <ProjectReference Include="Unity.AI.Navigation.Updater.csproj" />
-    <ProjectReference Include="Unity.Timeline.csproj" />
-    <ProjectReference Include="Unity.AI.Navigation.Editor.csproj" />
-    <ProjectReference Include="Unity.Formats.Fbx.Runtime.csproj" />
-    <ProjectReference Include="Unity.PathTracing.Runtime.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Core.Runtime.Shared.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Universal.2D.Runtime.csproj" />
-    <ProjectReference Include="Unity.InternalAPIEngineBridge.RenderPipelines.Core.Editor.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.Shared.Editor.csproj" />
-    <ProjectReference Include="Unity.Searcher.Editor.csproj" />
-    <ProjectReference Include="Unity.PlasticSCM.Editor.csproj" />
-    <ProjectReference Include="Unity.Burst.Editor.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.Core.csproj" />
-    <ProjectReference Include="Unity.UnifiedRayTracing.Runtime.csproj" />
-    <ProjectReference Include="Unity.Rider.Editor.csproj" />
-    <ProjectReference Include="Unity.AI.Navigation.Editor.ConversionSystem.csproj" />
-    <ProjectReference Include="Unity.InternalAPIEditorBridge.ShaderGraph.Editor.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Core.Runtime.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.Flow.csproj" />
-    <ProjectReference Include="Unity.TextMeshPro.Editor.csproj" />
-    <ProjectReference Include="Unity.PlasticSCM.Editor.Assistant.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj" />
-    <ProjectReference Include="Autodesk.Fbx.csproj" />
-    <ProjectReference Include="Unity.VisualStudio.Editor.csproj" />
-    <ProjectReference Include="Unity.SurfaceCache.Runtime.csproj" />
-    <ProjectReference Include="Unity.Collections.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.GPUDriven.Runtime.csproj" />
-    <ProjectReference Include="Unity.Timeline.Editor.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.State.Editor.csproj" />
-    <ProjectReference Include="Unity.Mathematics.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Shaders.csproj" />
-    <ProjectReference Include="Unity.InputSystem.ForUI.csproj" />
-    <ProjectReference Include="UnityEngine.UI.csproj" />
-    <ProjectReference Include="Unity.Multiplayer.Center.Common.csproj" />
-    <ProjectReference Include="Unity.Burst.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.Core.Editor.csproj" />
-    <ProjectReference Include="Unity.InternalAPIEngineBridge.004.csproj" />
-    <ProjectReference Include="Unity.Multiplayer.Center.Editor.csproj" />
-    <ProjectReference Include="Unity.PathTracing.Editor.csproj" />
-    <ProjectReference Include="Unity.Formats.Fbx.Editor.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Runtime.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.State.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Config.Runtime.csproj" />
-    <ProjectReference Include="Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.csproj" />
-    <ProjectReference Include="Unity.RenderPipeline.Universal.ShaderLibrary.csproj" />
-    <ProjectReference Include="Autodesk.Fbx.Editor.csproj" />
-    <ProjectReference Include="Unity.Collections.Editor.csproj" />
-    <ProjectReference Include="Unity.ShaderGraph.Editor.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Core.Editor.Shared.csproj" />
-    <ProjectReference Include="Unity.InputSystem.csproj" />
     <ProjectReference Include="UnityEditor.UI.csproj" />
+    <ProjectReference Include="UnityEngine.UI.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
