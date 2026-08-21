@@ -3,6 +3,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class InvertedGravityController : MonoBehaviour
 {
+    [Header("Conexión con el Vidrio (Mesa)")]
+    [Tooltip("La cámara que graba a este personaje (La que tiene el Render Texture)")]
+    public Camera camaraRender;
+    [Tooltip("El Quad base/invisible de la mesa que usaste como referencia para los UVs")]
+    public Transform pantallaReferencia;
+
     [Header("Velocidad General")]
     public float velocidadMax = 8f;
 
@@ -10,25 +16,25 @@ public class InvertedGravityController : MonoBehaviour
     public float aceleracionSuelo = 60f;
     public float desaceleracionSuelo = 60f;
 
-    [Header("Suavizado en Aire (Menos Control)")]
+    [Header("Suavizado en Aire")]
     public float aceleracionAire = 15f;
     public float desaceleracionAire = 5f;
 
     [Header("Salto y Gravedad")]
     public float fuerzaSalto = 10f;
     public float fuerzaGravedad = 15f;
-
-    [Header("Escaleras")]
     public float velocidadEscalada = 5f;
 
     [Header("Animación y Visuales")]
     public Animator animator;
-    public SpriteRenderer spriteRenderer; // Necesario para voltear el dibujo
+    public SpriteRenderer spriteRenderer;
+
+    [Header("Estado de Gravedad (Solo Lectura)")]
+    public Vector3 vectorGravedad = Vector3.back;
+    public Vector3 vectorSalto = Vector3.forward;
 
     private Rigidbody rb;
     private bool estaEnSuelo;
-
-    // --- ESTADOS DE ESCALERA ---
     private bool enEscalera;
     private bool escalando;
 
@@ -36,10 +42,12 @@ public class InvertedGravityController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
-        rb.freezeRotation = true;
+
+        // --- BLOQUEO DE SEGURIDAD ---
+        // Congelamos la rotación y también la posición en Y para que jamás flote o se caiga en profundidad 3D
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
         rb.sleepThreshold = 0f;
 
-        // Autocompletar la referencia si te olvidas de arrastrarla en el inspector
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -51,36 +59,61 @@ public class InvertedGravityController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // 1. Leemos el vidrio antes de movernos
+        DetectarGravedadDelVidrio();
+
         if (!escalando)
         {
             AplicarGravedadArtificial();
         }
 
         ManejarMovimiento();
-
         estaEnSuelo = false;
+    }
+
+    private void DetectarGravedadDelVidrio()
+    {
+        if (camaraRender == null || pantallaReferencia == null) return;
+
+        Vector3 viewportPos = camaraRender.WorldToViewportPoint(transform.position);
+        Vector3 posicionRelativa = new Vector3(viewportPos.x - 0.5f, viewportPos.y - 0.5f, 0f);
+        Vector3 posicionEnMesa = pantallaReferencia.TransformPoint(posicionRelativa);
+
+        Vector3 origenRayo = posicionEnMesa + Vector3.up * 5f;
+        if (Physics.Raycast(origenRayo, Vector3.down, out RaycastHit hit, 10f))
+        {
+            if (hit.collider.CompareTag("Fragmento"))
+            {
+                // Obtenemos la gravedad completa de la pieza
+                Vector3 gravedadCruda = hit.transform.rotation * Vector3.back;
+
+                // --- RESTRICCIÓN AL EJE Z ---
+                // Anulamos X e Y. Solo nos quedamos con la dirección en Z.
+                Vector3 nuevaGravedadZ = new Vector3(0f, 0f, gravedadCruda.z).normalized;
+
+                // Si la nueva gravedad no es cero, la aplicamos
+                if (nuevaGravedadZ.sqrMagnitude > 0.01f)
+                {
+                    CambiarDireccionGravedad(nuevaGravedadZ);
+                }
+            }
+        }
+    }
+
+    public void CambiarDireccionGravedad(Vector3 nuevaGravedad)
+    {
+        vectorGravedad = nuevaGravedad;
+        vectorSalto = -vectorGravedad;
     }
 
     private void ManejarAnimacionesVisuales()
     {
-        // 1. CONTROL DE CORRER / QUIETO
         animator.SetFloat("Movement", Mathf.Abs(rb.linearVelocity.x));
-
-        // 2. CONTROL DE SALTO / CAÍDA
-        // Le enviamos el estado físico al Animator usando el nombre exacto que pediste
         animator.SetBool("ensuelo", estaEnSuelo);
 
-        // 3. CONTROL DE LA DIRECCIÓN (Flip)
         float inputHorizontal = Input.GetAxisRaw("Horizontal");
-
-        if (inputHorizontal > 0.01f)
-        {
-            spriteRenderer.flipX = false; // Mira a la derecha
-        }
-        else if (inputHorizontal < -0.01f)
-        {
-            spriteRenderer.flipX = true;  // Mira a la izquierda
-        }
+        if (inputHorizontal > 0.01f) spriteRenderer.flipX = false;
+        else if (inputHorizontal < -0.01f) spriteRenderer.flipX = true;
     }
 
     private void ManejarSalto()
@@ -88,8 +121,8 @@ public class InvertedGravityController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && (estaEnSuelo || escalando))
         {
             escalando = false;
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 0f);
-            rb.AddForce(Vector3.forward * fuerzaSalto, ForceMode.Impulse);
+            rb.linearVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, vectorSalto);
+            rb.AddForce(vectorSalto * fuerzaSalto, ForceMode.Impulse);
             estaEnSuelo = false;
         }
     }
@@ -99,19 +132,16 @@ public class InvertedGravityController : MonoBehaviour
         float inputHorizontal = Input.GetAxisRaw("Horizontal");
         float inputVertical = Input.GetAxisRaw("Vertical");
 
-        if (enEscalera && Mathf.Abs(inputVertical) > 0.1f)
-        {
-            escalando = true;
-        }
+        if (enEscalera && Mathf.Abs(inputVertical) > 0.1f) escalando = true;
 
         if (escalando)
         {
             float nuevaVelocidadZ = inputVertical * velocidadEscalada;
-
             float velocidadObjetivoX = inputHorizontal * velocidadMax;
             float nuevaVelocidadX = Mathf.MoveTowards(rb.linearVelocity.x, velocidadObjetivoX, aceleracionAire * Time.fixedDeltaTime);
 
-            rb.linearVelocity = new Vector3(nuevaVelocidadX, rb.linearVelocity.y, nuevaVelocidadZ);
+            // Mantenemos Y en 0 de forma estricta
+            rb.linearVelocity = new Vector3(nuevaVelocidadX, 0f, nuevaVelocidadZ);
         }
         else
         {
@@ -122,20 +152,21 @@ public class InvertedGravityController : MonoBehaviour
 
             float nuevaVelocidadX = Mathf.MoveTowards(rb.linearVelocity.x, velocidadObjetivoX, tasaDeCambio * Time.fixedDeltaTime);
 
-            rb.linearVelocity = new Vector3(nuevaVelocidadX, rb.linearVelocity.y, rb.linearVelocity.z);
+            // Mantenemos Y en 0 de forma estricta, respetando el movimiento Z natural de la gravedad
+            rb.linearVelocity = new Vector3(nuevaVelocidadX, 0f, rb.linearVelocity.z);
         }
     }
 
     private void AplicarGravedadArtificial()
     {
-        rb.AddForce(Vector3.back * fuerzaGravedad, ForceMode.Acceleration);
+        rb.AddForce(vectorGravedad * fuerzaGravedad, ForceMode.Acceleration);
     }
 
     private void OnCollisionStay(Collision collision)
     {
         foreach (ContactPoint contacto in collision.contacts)
         {
-            if (contacto.normal.z > 0.5f)
+            if (Vector3.Dot(contacto.normal, vectorSalto) > 0.5f)
             {
                 estaEnSuelo = true;
                 return;
@@ -143,20 +174,6 @@ public class InvertedGravityController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Escalera"))
-        {
-            enEscalera = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Escalera"))
-        {
-            enEscalera = false;
-            escalando = false;
-        }
-    }
+    private void OnTriggerEnter(Collider other) { if (other.CompareTag("Escalera")) enEscalera = true; }
+    private void OnTriggerExit(Collider other) { if (other.CompareTag("Escalera")) { enEscalera = false; escalando = false; } }
 }

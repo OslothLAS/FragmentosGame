@@ -9,6 +9,8 @@ TagManager:
   - Vacio
   - Escalera
   - Importante
+  - Cilindro
+  - Fragmento
   layers:
   - Default
   - TransparentFX

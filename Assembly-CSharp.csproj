@@ -70,6 +70,8 @@
     <Compile Include="Assets\CarpetaOsmar\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\InvertedGravityController.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\GeneradorFragmentos.cs" />
+    <Compile Include="Assets\CarpetaOsmar\Scripts\FragmentoUV.cs" />
+    <Compile Include="Assets\CarpetaOsmar\Scripts\Desaparecer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\CarpetaOsmar\Cosas\StencilMask.shader" />
