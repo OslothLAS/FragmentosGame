@@ -55,6 +55,12 @@ public class ArrastrarPiezaXZ : MonoBehaviour
 
     void OnMouseDown()
     {
+        // 1. Verificamos si estamos colisionando con el jugador ANTES de permitir el agarre
+        if (EstaTocandoAlJugador())
+        {
+            return; // Cortamos la ejecución acá, no se puede agarrar
+        }
+
         siendoArrastrado = true; // Tomamos el control manual
 
         Ray rayo = camaraPrincipal.ScreenPointToRay(Input.mousePosition);
@@ -69,6 +75,9 @@ public class ArrastrarPiezaXZ : MonoBehaviour
 
     void OnMouseDrag()
     {
+        // 2. Si no la pudimos agarrar en OnMouseDown, ignoramos el arrastre
+        if (!siendoArrastrado) return;
+
         Ray rayo = camaraPrincipal.ScreenPointToRay(Input.mousePosition);
 
         if (planoDeArrastre.Raycast(rayo, out float distanciaImpacto))
@@ -80,9 +89,33 @@ public class ArrastrarPiezaXZ : MonoBehaviour
 
     void OnMouseUp()
     {
+        // 3. Evitamos evaluar un intercambio si soltamos el clic sobre una pieza bloqueada
+        if (!siendoArrastrado) return;
+
         siendoArrastrado = false; // Soltamos el control manual, el Update() entra en acción
         alturaObjetivoY = alturaFijaY;
         EvaluarIntercambio();
+    }
+
+    // --- NUEVA FUNCIÓN ---
+    private bool EstaTocandoAlJugador()
+    {
+        Vector3 centro = miCollider.bounds.center;
+        Vector3 tamanoMedio = miCollider.bounds.size / 2f;
+
+        // Revisamos qué hay exactamente en el espacio que ocupa esta pieza
+        Collider[] colisiones = Physics.OverlapBox(centro, tamanoMedio, transform.rotation);
+
+        foreach (Collider col in colisiones)
+        {
+            // OJO con las mayúsculas: "player" no es lo mismo que "Player" en los tags de Unity
+            if (col.CompareTag("Player"))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void EvaluarIntercambio()
@@ -136,9 +169,6 @@ public class ArrastrarPiezaXZ : MonoBehaviour
 
     public void ForzarNuevaCasilla(Vector3 nuevaPosicion)
     {
-        // Al desvincular la posición lógica de la visual, simplemente cambiamos la meta.
-        // Como 'siendoArrastrado' es false en este momento, el Lerp del Update() 
-        // hará que la pieza viaje sola hacia esta nueva coordenada.
         posicionGridOriginal = nuevaPosicion;
     }
 }
