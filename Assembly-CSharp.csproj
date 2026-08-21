@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\carpeta gohan\scripts\MenuManager.cs" />
+    <Compile Include="Assets\carpeta gohan\scripts\LogicaTrampolin.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\PlyerController2D.cs" />
     <Compile Include="Assets\carpeta gohan\scripts\GameManager.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\ArrastrarPiezaXZ.cs" />
