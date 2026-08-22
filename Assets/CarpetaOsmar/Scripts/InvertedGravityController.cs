@@ -13,6 +13,12 @@ public class InvertedGravityController : MonoBehaviour
     [Header("Mecánica de Inclinación")]
     public float margenGrados = 20f;
 
+    [Tooltip("Invierte la gravedad cuando cae hacia los costados (Izquierda pasa a ser Derecha y viceversa)")]
+    public bool invertirGravedadX = false;
+
+    [Tooltip("Invierte la gravedad cuando cae hacia adelante/atrás (El Piso pasa a ser Techo y viceversa)")]
+    public bool invertirGravedadZ = false;
+
     [Header("Velocidad General")]
     public float velocidadMax = 8f;
 
@@ -53,7 +59,8 @@ public class InvertedGravityController : MonoBehaviour
 
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
 
-        todosLosFragmentos = Object.FindObjectsByType<DetectorUV>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        // Corregido el parámetro obsoleto
+        todosLosFragmentos = Object.FindObjectsByType<DetectorUV>(FindObjectsInactive.Exclude);
 
         foreach (DetectorUV frag in todosLosFragmentos)
         {
@@ -91,16 +98,12 @@ public class InvertedGravityController : MonoBehaviour
         {
             if (fragmento.ContieneAlPersonaje(uvDelPersonaje))
             {
-                // NUEVA LÓGICA DE BLOQUEO:
                 ArrastrarPiezaXZ scriptArrastre = fragmento.GetComponent<ArrastrarPiezaXZ>();
                 if (scriptArrastre != null && scriptArrastre.EstaSiendoManipulada)
                 {
-                    // Si el jugador está moviendo esta pieza, no calculamos nueva gravedad.
-                    // El personaje se mantiene pegado al piso con la dirección actual.
                     break;
                 }
 
-                // Solo recalcula cuando la pieza es soltada
                 CalcularNuevaGravedad(fragmento);
                 break;
             }
@@ -135,6 +138,19 @@ public class InvertedGravityController : MonoBehaviour
             {
                 nuevaGravedad = Vector3.forward;
             }
+        }
+
+        // --- INVERSIÓN DESDE EL EDITOR ---
+        if (invertirGravedadX)
+        {
+            if (nuevaGravedad == Vector3.left) nuevaGravedad = Vector3.right;
+            else if (nuevaGravedad == Vector3.right) nuevaGravedad = Vector3.left;
+        }
+
+        if (invertirGravedadZ)
+        {
+            if (nuevaGravedad == Vector3.back) nuevaGravedad = Vector3.forward;
+            else if (nuevaGravedad == Vector3.forward) nuevaGravedad = Vector3.back;
         }
 
         vectorGravedad = nuevaGravedad;
@@ -212,7 +228,7 @@ public class InvertedGravityController : MonoBehaviour
                 estaEnSuelo = true;
                 return;
             }
-        } 
+        }
     }
 
     private void OnTriggerEnter(Collider other) { if (other.CompareTag("Escalera")) enEscalera = true; }
