@@ -212,7 +212,7 @@ public class InvertedGravityController : MonoBehaviour
                 estaEnSuelo = true;
                 return;
             }
-        }
+        } 
     }
 
     private void OnTriggerEnter(Collider other) { if (other.CompareTag("Escalera")) enEscalera = true; }
