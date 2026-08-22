@@ -7,7 +7,15 @@ public class ArrastrarPiezaXZ : MonoBehaviour
     [Header("Configuración Visual")]
     public float elevacionAlAgarrar = 0.5f;
     public float velocidadElevacion = 15f;
-    public float velocidadRotacion = 10f;
+    public float velocidadRotacion = 5f;
+
+    [Header("Restricciones de Rotación")]
+    public bool rotarEnX = true;
+    public bool rotarEnY = true;
+    public bool rotarEnZ = false;
+
+    // NUEVO: Propiedad pública para que el jugador sepa si esta pieza está en el aire
+    public bool EstaSiendoManipulada => siendoArrastrado || rotando;
 
     private Camera camaraPrincipal;
     private Vector3 offset;
@@ -18,18 +26,21 @@ public class ArrastrarPiezaXZ : MonoBehaviour
     private bool siendoArrastrado = false;
     private bool rotando = false;
     private Vector3 posicionObjetivo;
-
-    // --- NUEVO: Referencia al jugador ---
-    private InvertedGravityController jugadorAsociado;
+    private Quaternion rotacionObjetivo;
 
     void Start()
     {
         camaraPrincipal = Camera.main;
+        if (camaraPrincipal == null)
+        {
+            Debug.LogError("¡Falta el tag 'MainCamera' en la cámara de esta escena!");
+        }
+
         miCollider = GetComponent<MeshCollider>();
         miCollider.convex = true;
-        rb = GetComponent<Rigidbody>();
 
-        jugadorAsociado = Object.FindAnyObjectByType<InvertedGravityController>();
+        rb = GetComponent<Rigidbody>();
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
     }
 
     void Update()
@@ -37,26 +48,50 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         if (Input.GetMouseButtonUp(1))
         {
             rotando = false;
-            if (!siendoArrastrado) rb.isKinematic = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            if (siendoArrastrado)
+            {
+                Ray rayo = camaraPrincipal.ScreenPointToRay(Input.mousePosition);
+                if (planoDeArrastre.Raycast(rayo, out float distanciaImpacto))
+                {
+                    Vector3 puntoDeClic = rayo.GetPoint(distanciaImpacto);
+                    offset = posicionObjetivo - puntoDeClic;
+                    offset.y = 0;
+                }
+            }
+            else
+            {
+                rb.isKinematic = false;
+            }
         }
 
-        if (rotando)
+        if (siendoArrastrado && Input.GetMouseButtonDown(1))
+        {
+            rotando = true;
+            rotacionObjetivo = rb.rotation;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        if (rotando && camaraPrincipal != null)
         {
             float movX = Input.GetAxis("Mouse X") * velocidadRotacion;
             float movY = Input.GetAxis("Mouse Y") * velocidadRotacion;
 
-            transform.Rotate(Vector3.up, -movX, Space.World);
-            transform.Rotate(Vector3.right, movY, Space.World);
-        }
+            Quaternion giro = Quaternion.identity;
 
-        // --- NUEVA MECÁNICA: Actualizar gravedad en tiempo real ---
-        if (siendoArrastrado || rotando)
-        {
-            if (jugadorAsociado != null)
+            if (rotarEnY) giro *= Quaternion.AngleAxis(-movX, Vector3.up);
+            else if (rotarEnZ) giro *= Quaternion.AngleAxis(-movX, Vector3.forward);
+            if (rotarEnX) giro *= Quaternion.AngleAxis(movY, Vector3.right);
+
+            if (giro != Quaternion.identity)
             {
-                // Convertimos la dirección "Atrás" a la rotación actual del fragmento
-                Vector3 nuevaGravedad = transform.rotation * Vector3.back;
-                jugadorAsociado.CambiarDireccionGravedad(nuevaGravedad);
+                Vector3 centroLocalEscalado = Vector3.Scale(miCollider.sharedMesh.bounds.center, transform.lossyScale);
+                Vector3 centroMundoObjetivo = posicionObjetivo + (rotacionObjetivo * centroLocalEscalado);
+                rotacionObjetivo = giro * rotacionObjetivo;
+                posicionObjetivo = centroMundoObjetivo - (rotacionObjetivo * centroLocalEscalado);
             }
         }
     }
@@ -67,7 +102,9 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         {
             float nuevaY = Mathf.Lerp(rb.position.y, posicionObjetivo.y, Time.fixedDeltaTime * velocidadElevacion);
             Vector3 nuevaPosicion = new Vector3(posicionObjetivo.x, nuevaY, posicionObjetivo.z);
+
             rb.MovePosition(nuevaPosicion);
+            rb.MoveRotation(rotacionObjetivo);
         }
     }
 
@@ -75,10 +112,15 @@ public class ArrastrarPiezaXZ : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            if (EstaTocandoAlJugador()) return;
+            if (Input.GetMouseButton(0)) return;
+            // if (EstaTocandoAlJugador()) return; // COMENTADO: Para permitir girar la pieza con el jugador
 
             rotando = true;
             rb.isKinematic = true;
+            rotacionObjetivo = rb.rotation;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
 
             if (!siendoArrastrado)
             {
@@ -89,10 +131,12 @@ public class ArrastrarPiezaXZ : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (EstaTocandoAlJugador()) return;
+        if (camaraPrincipal == null) return;
+        // if (EstaTocandoAlJugador()) return; // COMENTADO: Para permitir levantar la pieza con el jugador
 
         siendoArrastrado = true;
         rb.isKinematic = true;
+        rotacionObjetivo = rb.rotation;
 
         float alturaObjetivoY = transform.position.y;
         if (!rotando) alturaObjetivoY += elevacionAlAgarrar;
@@ -103,7 +147,8 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         if (planoDeArrastre.Raycast(rayo, out float distanciaImpacto))
         {
             Vector3 puntoDeClic = rayo.GetPoint(distanciaImpacto);
-            offset = new Vector3(transform.position.x - puntoDeClic.x, 0, transform.position.z - puntoDeClic.z);
+            offset = transform.position - puntoDeClic;
+            offset.y = 0;
         }
 
         if (!rotando)
@@ -114,7 +159,7 @@ public class ArrastrarPiezaXZ : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (!siendoArrastrado || rotando) return;
+        if (!siendoArrastrado || rotando || camaraPrincipal == null) return;
 
         Ray rayo = camaraPrincipal.ScreenPointToRay(Input.mousePosition);
 
@@ -129,10 +174,21 @@ public class ArrastrarPiezaXZ : MonoBehaviour
     void OnMouseUp()
     {
         if (!siendoArrastrado) return;
+
         siendoArrastrado = false;
         if (!rotando) rb.isKinematic = false;
     }
 
+    void OnDisable()
+    {
+        if (rotando)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+
+    // Dejé la función por si querés usarla para otra cosa a futuro
     private bool EstaTocandoAlJugador()
     {
         Vector3 centro = miCollider.bounds.center;

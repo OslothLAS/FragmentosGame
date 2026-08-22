@@ -1,13 +1,17 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody))]
 public class InvertedGravityController : MonoBehaviour
 {
-    [Header("Conexión con el Vidrio (Mesa)")]
-    [Tooltip("La cámara que graba a este personaje (La que tiene el Render Texture)")]
+    [Header("Detección por UV")]
     public Camera camaraRender;
-    [Tooltip("El Quad base/invisible de la mesa que usaste como referencia para los UVs")]
-    public Transform pantallaReferencia;
+    private DetectorUV[] todosLosFragmentos;
+
+    private Dictionary<DetectorUV, Quaternion> memoriaRotaciones = new Dictionary<DetectorUV, Quaternion>();
+
+    [Header("Mecánica de Inclinación")]
+    public float margenGrados = 20f;
 
     [Header("Velocidad General")]
     public float velocidadMax = 8f;
@@ -29,9 +33,10 @@ public class InvertedGravityController : MonoBehaviour
     public Animator animator;
     public SpriteRenderer spriteRenderer;
 
-    [Header("Estado de Gravedad (Solo Lectura)")]
+    [Header("Vectores Dinámicos (Solo Lectura)")]
     public Vector3 vectorGravedad = Vector3.back;
     public Vector3 vectorSalto = Vector3.forward;
+    public Vector3 vectorDerecha = Vector3.right;
 
     private Rigidbody rb;
     private bool estaEnSuelo;
@@ -43,12 +48,17 @@ public class InvertedGravityController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
 
-        // --- BLOQUEO DE SEGURIDAD ---
-        // Congelamos la rotación y también la posición en Y para que jamás flote o se caiga en profundidad 3D
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
         rb.sleepThreshold = 0f;
 
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+
+        todosLosFragmentos = Object.FindObjectsByType<DetectorUV>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+
+        foreach (DetectorUV frag in todosLosFragmentos)
+        {
+            memoriaRotaciones.Add(frag, frag.transform.rotation);
+        }
     }
 
     void Update()
@@ -59,72 +69,77 @@ public class InvertedGravityController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // 1. Leemos el vidrio antes de movernos
-        DetectarGravedadDelVidrio();
+        DetectarGravedadPorUV();
 
         if (!escalando)
         {
-            AplicarGravedadArtificial();
+            rb.AddForce(vectorGravedad * fuerzaGravedad, ForceMode.Acceleration);
         }
 
         ManejarMovimiento();
         estaEnSuelo = false;
     }
 
-    private void DetectarGravedadDelVidrio()
+    private void DetectarGravedadPorUV()
     {
-        if (camaraRender == null || pantallaReferencia == null) return;
+        if (camaraRender == null || todosLosFragmentos.Length == 0) return;
 
         Vector3 viewportPos = camaraRender.WorldToViewportPoint(transform.position);
-        Vector3 posicionRelativa = new Vector3(viewportPos.x - 0.5f, viewportPos.y - 0.5f, 0f);
-        Vector3 posicionEnMesa = pantallaReferencia.TransformPoint(posicionRelativa);
+        Vector2 uvDelPersonaje = new Vector2(viewportPos.x, viewportPos.y);
 
-        Vector3 origenRayo = posicionEnMesa + Vector3.up * 5f;
-        if (Physics.Raycast(origenRayo, Vector3.down, out RaycastHit hit, 10f))
+        foreach (DetectorUV fragmento in todosLosFragmentos)
         {
-            if (hit.collider.CompareTag("Fragmento"))
+            if (fragmento.ContieneAlPersonaje(uvDelPersonaje))
             {
-                // Obtenemos la gravedad completa de la pieza
-                Vector3 gravedadCruda = hit.transform.rotation * Vector3.back;
-
-                // --- RESTRICCIÓN AL EJE Z ---
-                // Anulamos X e Y. Solo nos quedamos con la dirección en Z.
-                Vector3 nuevaGravedadZ = new Vector3(0f, 0f, gravedadCruda.z).normalized;
-
-                // Si la nueva gravedad no es cero, la aplicamos
-                if (nuevaGravedadZ.sqrMagnitude > 0.01f)
+                // NUEVA LÓGICA DE BLOQUEO:
+                ArrastrarPiezaXZ scriptArrastre = fragmento.GetComponent<ArrastrarPiezaXZ>();
+                if (scriptArrastre != null && scriptArrastre.EstaSiendoManipulada)
                 {
-                    CambiarDireccionGravedad(nuevaGravedadZ);
+                    // Si el jugador está moviendo esta pieza, no calculamos nueva gravedad.
+                    // El personaje se mantiene pegado al piso con la dirección actual.
+                    break;
                 }
+
+                // Solo recalcula cuando la pieza es soltada
+                CalcularNuevaGravedad(fragmento);
+                break;
             }
         }
     }
 
-    public void CambiarDireccionGravedad(Vector3 nuevaGravedad)
+    private void CalcularNuevaGravedad(DetectorUV fragmento)
     {
-        vectorGravedad = nuevaGravedad;
-        vectorSalto = -vectorGravedad;
-    }
+        Quaternion rotacionOriginal = memoriaRotaciones[fragmento];
+        Quaternion rotacionActual = fragmento.transform.rotation;
+        Quaternion diferenciaRotacion = rotacionActual * Quaternion.Inverse(rotacionOriginal);
 
-    private void ManejarAnimacionesVisuales()
-    {
-        animator.SetFloat("Movement", Mathf.Abs(rb.linearVelocity.x));
-        animator.SetBool("ensuelo", estaEnSuelo);
+        Vector3 direccionRelativa = diferenciaRotacion * Vector3.back;
+        direccionRelativa.y = 0;
+        direccionRelativa.Normalize();
 
-        float inputHorizontal = Input.GetAxisRaw("Horizontal");
-        if (inputHorizontal > 0.01f) spriteRenderer.flipX = false;
-        else if (inputHorizontal < -0.01f) spriteRenderer.flipX = true;
-    }
+        float anguloY = Vector3.SignedAngle(Vector3.back, direccionRelativa, Vector3.up);
 
-    private void ManejarSalto()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && (estaEnSuelo || escalando))
+        Vector3 nuevaGravedad = Vector3.back;
+
+        if (Mathf.Abs(anguloY) > margenGrados)
         {
-            escalando = false;
-            rb.linearVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, vectorSalto);
-            rb.AddForce(vectorSalto * fuerzaSalto, ForceMode.Impulse);
-            estaEnSuelo = false;
+            if (anguloY > margenGrados && anguloY <= 135f)
+            {
+                nuevaGravedad = Vector3.left;
+            }
+            else if (anguloY < -margenGrados && anguloY >= -135f)
+            {
+                nuevaGravedad = Vector3.right;
+            }
+            else if (Mathf.Abs(anguloY) > 135f)
+            {
+                nuevaGravedad = Vector3.forward;
+            }
         }
+
+        vectorGravedad = nuevaGravedad;
+        vectorSalto = -nuevaGravedad;
+        vectorDerecha = Vector3.Cross(vectorGravedad, Vector3.up).normalized;
     }
 
     private void ManejarMovimiento()
@@ -134,32 +149,58 @@ public class InvertedGravityController : MonoBehaviour
 
         if (enEscalera && Mathf.Abs(inputVertical) > 0.1f) escalando = true;
 
+        float velLateralActual = Vector3.Dot(rb.linearVelocity, vectorDerecha);
+        float velCaidaActual = Vector3.Dot(rb.linearVelocity, vectorGravedad);
+
         if (escalando)
         {
-            float nuevaVelocidadZ = inputVertical * velocidadEscalada;
-            float velocidadObjetivoX = inputHorizontal * velocidadMax;
-            float nuevaVelocidadX = Mathf.MoveTowards(rb.linearVelocity.x, velocidadObjetivoX, aceleracionAire * Time.fixedDeltaTime);
+            float nuevaVelSalto = inputVertical * velocidadEscalada;
+            float velObjetivoX = inputHorizontal * velocidadMax;
+            float nuevaVelLateral = Mathf.MoveTowards(velLateralActual, velObjetivoX, aceleracionAire * Time.fixedDeltaTime);
 
-            // Mantenemos Y en 0 de forma estricta
-            rb.linearVelocity = new Vector3(nuevaVelocidadX, 0f, nuevaVelocidadZ);
+            Vector3 nuevaVelocidad = (vectorDerecha * nuevaVelLateral) + (vectorSalto * nuevaVelSalto);
+            nuevaVelocidad.y = 0f;
+            rb.linearVelocity = nuevaVelocidad;
         }
         else
         {
-            float velocidadObjetivoX = inputHorizontal * velocidadMax;
-            float aceleracionActual = estaEnSuelo ? aceleracionSuelo : aceleracionAire;
-            float desaceleracionActual = estaEnSuelo ? desaceleracionSuelo : desaceleracionAire;
-            float tasaDeCambio = (Mathf.Abs(inputHorizontal) > 0.01f) ? aceleracionActual : desaceleracionActual;
+            float targetSpeed = inputHorizontal * velocidadMax;
+            float tasaDeCambio = estaEnSuelo ? aceleracionSuelo : aceleracionAire;
+            if (Mathf.Abs(inputHorizontal) < 0.01f) tasaDeCambio = estaEnSuelo ? desaceleracionSuelo : desaceleracionAire;
 
-            float nuevaVelocidadX = Mathf.MoveTowards(rb.linearVelocity.x, velocidadObjetivoX, tasaDeCambio * Time.fixedDeltaTime);
+            float nuevaVelLateral = Mathf.MoveTowards(velLateralActual, targetSpeed, tasaDeCambio * Time.fixedDeltaTime);
 
-            // Mantenemos Y en 0 de forma estricta, respetando el movimiento Z natural de la gravedad
-            rb.linearVelocity = new Vector3(nuevaVelocidadX, 0f, rb.linearVelocity.z);
+            Vector3 nuevaVelocidad = (vectorDerecha * nuevaVelLateral) + (vectorGravedad * velCaidaActual);
+            nuevaVelocidad.y = 0f;
+            rb.linearVelocity = nuevaVelocidad;
         }
     }
 
-    private void AplicarGravedadArtificial()
+    private void ManejarSalto()
     {
-        rb.AddForce(vectorGravedad * fuerzaGravedad, ForceMode.Acceleration);
+        if (Input.GetKeyDown(KeyCode.Space) && (estaEnSuelo || escalando))
+        {
+            escalando = false;
+
+            float velLateralActual = Vector3.Dot(rb.linearVelocity, vectorDerecha);
+            Vector3 velocidadCorrigida = vectorDerecha * velLateralActual;
+            velocidadCorrigida.y = 0f;
+            rb.linearVelocity = velocidadCorrigida;
+
+            rb.AddForce(vectorSalto * fuerzaSalto, ForceMode.Impulse);
+            estaEnSuelo = false;
+        }
+    }
+
+    private void ManejarAnimacionesVisuales()
+    {
+        float velLateral = Vector3.Dot(rb.linearVelocity, vectorDerecha);
+        animator.SetFloat("Movement", Mathf.Abs(velLateral));
+        animator.SetBool("ensuelo", estaEnSuelo);
+
+        float inputHorizontal = Input.GetAxisRaw("Horizontal");
+        if (inputHorizontal > 0.01f) spriteRenderer.flipX = false;
+        else if (inputHorizontal < -0.01f) spriteRenderer.flipX = true;
     }
 
     private void OnCollisionStay(Collision collision)
