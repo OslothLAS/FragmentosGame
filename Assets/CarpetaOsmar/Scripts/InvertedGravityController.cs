@@ -48,7 +48,7 @@ public class InvertedGravityController : MonoBehaviour
     private bool estaEnSuelo;
     private bool enEscalera;
     private bool escalando;
-    
+
     private Quaternion rotacionSpriteInicial;
 
     void Start()
@@ -60,7 +60,7 @@ public class InvertedGravityController : MonoBehaviour
         rb.sleepThreshold = 0f;
 
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        
+
         if (spriteRenderer != null)
         {
             rotacionSpriteInicial = spriteRenderer.transform.localRotation;
@@ -118,18 +118,35 @@ public class InvertedGravityController : MonoBehaviour
 
     private void CalcularNuevaGravedad(DetectorUV fragmento)
     {
+        // 1. EL TRUCO DEL EJE INVARIANTE 
         Quaternion rotacionOriginal = memoriaRotaciones[fragmento];
-        Quaternion rotacionActual = fragmento.transform.rotation;
-        Quaternion diferenciaRotacion = rotacionActual * Quaternion.Inverse(rotacionOriginal);
+        Vector3 ejeLocalDerecha = Quaternion.Inverse(rotacionOriginal) * Vector3.right;
 
-        Vector3 direccionRelativa = diferenciaRotacion * Vector3.back;
-        direccionRelativa.y = 0;
-        direccionRelativa.Normalize();
+        // La diferencia de rotación pura para usarla en nuestro detector de panqueque
+        Quaternion diferenciaRotacion = fragmento.transform.rotation * Quaternion.Inverse(rotacionOriginal);
 
-        float anguloY = Vector3.SignedAngle(Vector3.back, direccionRelativa, Vector3.up);
+        // 2. ¿HACIA DÓNDE APUNTA AHORA LA DERECHA?
+        Vector3 derechaActual = fragmento.transform.rotation * ejeLocalDerecha;
+        derechaActual.y = 0;
+        derechaActual.Normalize();
+
+        // 3. MEDIR EL ÁNGULO DE GIRO
+        float anguloY = Vector3.SignedAngle(Vector3.right, derechaActual, Vector3.up);
+
+        // --- 4. NUEVO: DETECTOR DE PANQUEQUE ---
+        // Vemos hacia dónde apunta ahora la cara original de la pieza que miraba al techo
+        Vector3 normalRelativa = diferenciaRotacion * Vector3.up;
+
+        // Si el eje Y de la normal es negativo, significa que la pieza está dada vuelta sobre la mesa
+        if (normalRelativa.y < 0)
+        {
+            // Invertimos el ángulo para que el giro físico coincida con la imagen espejada
+            anguloY = -anguloY;
+        }
 
         Vector3 nuevaGravedad = Vector3.back;
 
+        // 5. LÓGICA DE CUADRANTES
         if (Mathf.Abs(anguloY) > margenGrados)
         {
             if (anguloY > margenGrados && anguloY <= 135f)
@@ -146,6 +163,7 @@ public class InvertedGravityController : MonoBehaviour
             }
         }
 
+        // --- INVERSIÓN DESDE EL EDITOR ---
         if (invertirGravedadX)
         {
             if (nuevaGravedad == Vector3.left) nuevaGravedad = Vector3.right;
@@ -158,6 +176,7 @@ public class InvertedGravityController : MonoBehaviour
             else if (nuevaGravedad == Vector3.forward) nuevaGravedad = Vector3.back;
         }
 
+        // 6. ACTUALIZAR FÍSICAS
         vectorGravedad = nuevaGravedad;
         vectorSalto = -nuevaGravedad;
         vectorDerecha = Vector3.Cross(vectorGravedad, Vector3.up).normalized;
@@ -225,14 +244,12 @@ public class InvertedGravityController : MonoBehaviour
 
         if (spriteRenderer != null)
         {
-            // Solo rotamos 180° en Z si la gravedad es exactamente hacia arriba (Techo)
             if (vectorGravedad == Vector3.forward)
             {
                 spriteRenderer.transform.localRotation = rotacionSpriteInicial * Quaternion.Euler(0f, 0f, 180f);
             }
             else
             {
-                // En cualquier otro caso (piso normal o paredes), el sprite se mantiene derecho
                 spriteRenderer.transform.localRotation = rotacionSpriteInicial;
             }
         }

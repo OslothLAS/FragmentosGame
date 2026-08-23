@@ -11,6 +11,8 @@ TagManager:
   - Importante
   - Cilindro
   - Fragmento
+  - Vela
+  - Puerta
   layers:
   - Default
   - TransparentFX

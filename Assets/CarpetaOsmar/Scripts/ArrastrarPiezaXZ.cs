@@ -48,6 +48,8 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         if (Input.GetMouseButtonUp(1))
         {
             rotando = false;
+
+            // Liberamos el mouse sin teletransportarlo
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
@@ -71,7 +73,9 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         {
             rotando = true;
             rotacionObjetivo = rb.rotation;
-            Cursor.lockState = CursorLockMode.Locked;
+
+            // CONFINED: Lo atrapa en la ventana pero lo deja donde está
+            Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = false;
         }
 
@@ -113,13 +117,13 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             if (Input.GetMouseButton(0)) return;
-            // if (EstaTocandoAlJugador()) return; // COMENTADO: Para permitir girar la pieza con el jugador
 
             rotando = true;
             rb.isKinematic = true;
             rotacionObjetivo = rb.rotation;
 
-            Cursor.lockState = CursorLockMode.Locked;
+            // CONFINED: Lo atrapa en la ventana pero lo deja donde está
+            Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = false;
 
             if (!siendoArrastrado)
@@ -132,7 +136,6 @@ public class ArrastrarPiezaXZ : MonoBehaviour
     void OnMouseDown()
     {
         if (camaraPrincipal == null) return;
-        // if (EstaTocandoAlJugador()) return; // COMENTADO: Para permitir levantar la pieza con el jugador
 
         siendoArrastrado = true;
         rb.isKinematic = true;
@@ -188,7 +191,6 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         }
     }
 
-    // Dejé la función por si querés usarla para otra cosa a futuro
     private bool EstaTocandoAlJugador()
     {
         Vector3 centro = miCollider.bounds.center;

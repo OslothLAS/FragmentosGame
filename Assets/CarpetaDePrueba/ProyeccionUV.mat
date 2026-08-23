@@ -70,6 +70,7 @@ Material:
     m_Colors:
     - _BG_Offset: {r: 0, g: 0.35, b: 0, a: 0}
     - _BG_Scale: {r: 1, g: 1.77, b: 0, a: 0}
-    - _BG_color_correction: {r: 0.645283, g: 0.645283, b: 0.645283, a: 1}
+    - _BG_color_correction: {r: 0.6452829, g: 0.6452829, b: 0.6452829, a: 1}
+    - _ColorFog: {r: 0.47641504, g: 1, b: 0.5064733, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
