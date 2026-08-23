@@ -48,7 +48,7 @@ public class InvertedGravityController : MonoBehaviour
     private bool estaEnSuelo;
     private bool enEscalera;
     private bool escalando;
-
+    
     private Quaternion rotacionSpriteInicial;
 
     void Start()
@@ -60,7 +60,7 @@ public class InvertedGravityController : MonoBehaviour
         rb.sleepThreshold = 0f;
 
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
+        
         if (spriteRenderer != null)
         {
             rotacionSpriteInicial = spriteRenderer.transform.localRotation;
