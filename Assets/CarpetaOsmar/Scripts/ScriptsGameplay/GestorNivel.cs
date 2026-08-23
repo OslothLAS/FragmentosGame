@@ -1,20 +1,49 @@
 using UnityEngine;
-using TMPro; // Necesario para controlar textos modernos en Unity
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GestorNivel : MonoBehaviour
 {
-    [Header("Interfaz de Usuario")]
-    [Tooltip("Arrastrá acá el objeto de texto desde tu Canvas")]
+    [Header("Interfaz de Usuario - HUD")]
     public TextMeshProUGUI textoContador;
+    [Tooltip("Arrastrá acá el texto que mostrará el tiempo mientras juegas")]
+    public TextMeshProUGUI textoTiempoHUD;
+
+    [Header("Interfaz de Usuario - Victoria")]
+    public GameObject pantallaVictoria;
+    public TextMeshProUGUI textoTiempoFinal;
+
+    [Tooltip("Arrastrá acá las 5 imágenes de las velas de la pantalla de victoria, en orden.")]
+    public GameObject[] iconosVelasVictoria;
 
     private int contadorVela = 0;
-    private const int maxVelas = 3;
+    private const int velasRequeridas = 3;
+    private const int totalVelas = 5;
     private bool puedeTerminarJuego = false;
+
+    // Variables para el cronómetro
+    private float tiempoTranscurrido = 0f;
+    private bool cronometroActivo = true;
 
     void Start()
     {
-        // Inicializamos el texto apenas arranca el nivel para que no diga "New Text"
+        if (pantallaVictoria != null) pantallaVictoria.SetActive(false);
+
+        foreach (GameObject icono in iconosVelasVictoria)
+        {
+            if (icono != null) icono.SetActive(false);
+        }
+
         ActualizarPantalla();
+    }
+
+    void Update()
+    {
+        if (cronometroActivo)
+        {
+            tiempoTranscurrido += Time.deltaTime;
+            ActualizarTiempoHUD(); // Actualizamos el reloj visualmente cada frame
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,49 +51,84 @@ public class GestorNivel : MonoBehaviour
         // 1. Lógica para recoger las velas
         if (other.CompareTag("Vela"))
         {
-            if (contadorVela < maxVelas)
+            if (contadorVela < totalVelas)
             {
                 contadorVela++;
-
-                // Actualizamos el número en la pantalla al instante
                 ActualizarPantalla();
-
-                Debug.Log($"Vela recogida. Llevas {contadorVela} de {maxVelas}.");
                 Destroy(other.gameObject);
 
-                if (contadorVela >= maxVelas)
+                if (contadorVela == velasRequeridas)
                 {
                     puedeTerminarJuego = true;
-                    Debug.Log("¡Tienes todas las velas! La puerta está desbloqueada.");
+                    Debug.Log("¡Tienes las 3 velas necesarias! Puerta desbloqueada.");
                 }
             }
         }
 
-        // 2. Lógica para intentar salir por la puerta
+        // 2. Lógica para salir por la puerta y ganar
         else if (other.CompareTag("Puerta"))
         {
             if (puedeTerminarJuego)
             {
-                // Acá a futuro iría tu lógica real para cambiar de escena o ganar
-                Debug.Log("Terminar el juego");
+                cronometroActivo = false; // Frenamos el cronómetro interno y el del HUD
+                MostrarPantallaVictoria();
             }
             else
             {
-                Debug.Log($"No podés salir todavía. Te faltan velas ({contadorVela}/{maxVelas}).");
+                Debug.Log($"No podés salir todavía. Te faltan velas ({contadorVela}/{velasRequeridas}).");
             }
         }
     }
 
-    // Centralizamos la actualización de la UI en un solo lugar
     private void ActualizarPantalla()
     {
         if (textoContador != null)
         {
-            textoContador.text = $"{contadorVela}/{maxVelas}";
+            textoContador.text = $"{contadorVela}/{velasRequeridas}";
         }
-        else
+    }
+
+    // --- NUEVO: Función para actualizar el reloj en el HUD ---
+    private void ActualizarTiempoHUD()
+    {
+        if (textoTiempoHUD != null)
         {
-            Debug.LogWarning("¡Te olvidaste de asignar el Texto en el Inspector del GestorNivel!");
+            int minutos = Mathf.FloorToInt(tiempoTranscurrido / 60F);
+            int segundos = Mathf.FloorToInt(tiempoTranscurrido % 60F);
+
+            // Lo mostramos con formato clásico de cronómetro (00:00)
+            textoTiempoHUD.text = $"{minutos:00}:{segundos:00}";
         }
+    }
+
+    private void MostrarPantallaVictoria()
+    {
+        if (pantallaVictoria != null)
+        {
+            pantallaVictoria.SetActive(true);
+
+            int minutos = Mathf.FloorToInt(tiempoTranscurrido / 60F);
+            int segundos = Mathf.FloorToInt(tiempoTranscurrido % 60F);
+
+            if (textoTiempoFinal != null)
+            {
+                textoTiempoFinal.text = $"Tiempo: {minutos:00}:{segundos:00}";
+            }
+
+            // --- LÓGICA DE LOS ICONOS DE VELAS ---
+            for (int i = 0; i < iconosVelasVictoria.Length; i++)
+            {
+                if (iconosVelasVictoria[i] != null)
+                {
+                    iconosVelasVictoria[i].SetActive(i < contadorVela);
+                }
+            }
+        }
+    }
+
+    public void SiguienteNivel()
+    {
+        ControladorMenu.nivelSeleccionado++;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
