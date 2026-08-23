@@ -49,16 +49,27 @@ Material:
         m_Texture: {fileID: 8400000, guid: 53f1d0a931e51ff439da4088ed1563d3, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6dfd16f4bb6a417fb09b1e87fa83722b_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 8bc4c49f067691247b191110fb13d91d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BG_Tiling: 1
+    - _BG_tiling_multiply: 0.92
     - _QueueControl: 0
     - _main_noise: 29
     - _noise2n: 11.2
+    - _parallax_BG: 75.4
+    - _parallax_Gameplay: 5
     - _particles_variation: 2
     - _power: 14.1
     - _wind_speed2: -0.3
     - _wind_speed_base: 0.26
     - _wind_speed_particles: -0.85
-    m_Colors: []
+    m_Colors:
+    - _BG_Offset: {r: 0, g: 0.35, b: 0, a: 0}
+    - _BG_Scale: {r: 1, g: 1.77, b: 0, a: 0}
+    - _BG_color_correction: {r: 0.335849, g: 0.335849, b: 0.335849, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
