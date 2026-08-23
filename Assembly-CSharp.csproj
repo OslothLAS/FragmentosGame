@@ -60,6 +60,7 @@
     <Compile Include="Assets\CarpetaOsmar\Scripts\ScriptsGameplay\ComportamientoVela.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\ArrastrarPiezaXZ.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\RastrearFragmento.cs" />
+    <Compile Include="Assets\CarpetaOsmar\ControlEscenas\GestorDeNiveles.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\DetectorUV.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+    <Compile Include="Assets\CarpetaOsmar\ControlEscenas\ControladorMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\InvertedGravityController.cs" />
@@ -114,6 +116,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\CarpetaOsmar\Cosas\StencilCharacter.shader" />
+    <None Include="Assets\CarpetaOsmar\UI Prefabs\License.txt" />
     <None Include="Assets\CarpetaOsmar\Cosas\SpriteStencilCharacter.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SpaceWarp.shader" />

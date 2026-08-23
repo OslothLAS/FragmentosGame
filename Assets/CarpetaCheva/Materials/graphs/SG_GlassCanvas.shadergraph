@@ -59,6 +59,9 @@
         },
         {
             "m_Id": "41b28f29d00241a3adcd6d1dfc160911"
+        },
+        {
+            "m_Id": "3625c5ab053b479a8ae01c42bb68b054"
         }
     ],
     "m_Keywords": [],
@@ -275,6 +278,9 @@
         },
         {
             "m_Id": "53a61977dbec4459a201a6ea678a4fb6"
+        },
+        {
+            "m_Id": "e1b0540e046f41dc814783e5b01d15d4"
         }
     ],
     "m_GroupDatas": [],
@@ -1130,6 +1136,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "4c470bc38aae42bf85b8e7c66429126d"
+                },
+                "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "e1b0540e046f41dc814783e5b01d15d4"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "6dfd16f4bb6a417fb09b1e87fa83722b"
                 },
                 "m_SlotId": 1
             }
@@ -2836,6 +2856,44 @@
         "y": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty",
+    "m_ObjectId": "3625c5ab053b479a8ae01c42bb68b054",
+    "m_Guid": {
+        "m_GuidSerialized": "462f559e-ae78-452f-8e82-a36a7c8ee744"
+    },
+    "promotedFromAssetID": "",
+    "promotedFromCategoryName": "",
+    "promotedOrdering": -1,
+    "m_Name": "FondoNivel",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "FondoNivel",
+    "m_DefaultReferenceName": "_FondoNivel",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "hideConnector": false,
+    "m_Hidden": false,
+    "m_PerRendererData": false,
+    "m_customAttributes": [],
+    "m_Value": {
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"8bc4c49f067691247b191110fb13d91d\",\"type\":3}}",
+        "m_Guid": ""
+    },
+    "isMainTexture": false,
+    "useTilingAndOffset": false,
+    "useTexelSize": true,
+    "isHDR": false,
+    "m_Modifiable": true,
+    "m_DefaultType": 0
 }
 
 {
@@ -6399,6 +6457,21 @@
 }
 
 {
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
+    "m_ObjectId": "a0d1545ac7984af9affef964b8c701cd",
+    "m_Id": 0,
+    "m_DisplayName": "FondoNivel",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_HideConnector": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_CustomBinding": "",
+    "m_BareResource": false
+}
+
+{
     "m_SGVersion": 1,
     "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
     "m_ObjectId": "a1379798c1df4193a62386ee5e818fc4",
@@ -6721,6 +6794,9 @@
         },
         {
             "m_Id": "3ac37b91c30e4cf5a874772044da8044"
+        },
+        {
+            "m_Id": "3625c5ab053b479a8ae01c42bb68b054"
         }
     ]
 }
@@ -8807,6 +8883,42 @@
         "Y"
     ],
     "m_LiteralMode": false
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "e1b0540e046f41dc814783e5b01d15d4",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 23.199995040893556,
+            "y": -2.4000024795532228,
+            "width": 142.40000915527345,
+            "height": 33.600013732910159
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "a0d1545ac7984af9affef964b8c701cd"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "3625c5ab053b479a8ae01c42bb68b054"
+    }
 }
 
 {

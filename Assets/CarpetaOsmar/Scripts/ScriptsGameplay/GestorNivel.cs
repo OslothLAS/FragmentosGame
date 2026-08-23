@@ -60,7 +60,7 @@ public class GestorNivel : MonoBehaviour
     {
         if (textoContador != null)
         {
-            textoContador.text = $"{contadorVela} / {maxVelas}";
+            textoContador.text = $"{contadorVela}/{maxVelas}";
         }
         else
         {
