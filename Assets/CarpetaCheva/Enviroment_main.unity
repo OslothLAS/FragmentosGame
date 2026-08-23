@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 23944573}
   - component: {fileID: 23944580}
+  - component: {fileID: 23944581}
   - component: {fileID: 23944579}
   - component: {fileID: 23944578}
   - component: {fileID: 23944577}
@@ -199,6 +200,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &23944576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +309,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 23944572}
   m_Mesh: {fileID: -5720930937795344058, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &23944581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23944572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &31455817
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,6 +421,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &31455822
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -586,6 +605,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &34227319
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -767,6 +789,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &37388084
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -948,6 +973,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &45131977
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1039,6 +1067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 49219319}
   - component: {fileID: 49219326}
+  - component: {fileID: 49219327}
   - component: {fileID: 49219325}
   - component: {fileID: 49219324}
   - component: {fileID: 49219323}
@@ -1109,6 +1138,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &49219322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1215,6 +1247,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 49219318}
   m_Mesh: {fileID: -8606317335028232422, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &49219327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49219318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &75714226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,6 +1269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 75714227}
   - component: {fileID: 75714234}
+  - component: {fileID: 75714235}
   - component: {fileID: 75714233}
   - component: {fileID: 75714232}
   - component: {fileID: 75714231}
@@ -1295,6 +1340,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &75714230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1401,6 +1449,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 75714226}
   m_Mesh: {fileID: 4472869101957848765, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &75714235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75714226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &94089549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,6 +1561,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &94089554
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1592,6 +1655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 139127757}
   - component: {fileID: 139127764}
+  - component: {fileID: 139127765}
   - component: {fileID: 139127763}
   - component: {fileID: 139127762}
   - component: {fileID: 139127761}
@@ -1662,6 +1726,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &139127760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1768,6 +1835,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139127756}
   m_Mesh: {fileID: -3795316441234188097, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &139127765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139127756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &167298891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,6 +1969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 177169755}
   - component: {fileID: 177169762}
+  - component: {fileID: 177169763}
   - component: {fileID: 177169761}
   - component: {fileID: 177169760}
   - component: {fileID: 177169759}
@@ -1960,6 +2040,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &177169758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2066,6 +2149,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177169754}
   m_Mesh: {fileID: 8916246721084222248, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &177169763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177169754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &238914119
 GameObject:
   m_ObjectHideFlags: 0
@@ -2166,6 +2261,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &238914124
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2347,6 +2445,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &250021637
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2438,6 +2539,7 @@ GameObject:
   m_Component:
   - component: {fileID: 282505910}
   - component: {fileID: 282505917}
+  - component: {fileID: 282505918}
   - component: {fileID: 282505916}
   - component: {fileID: 282505915}
   - component: {fileID: 282505914}
@@ -2508,6 +2610,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &282505913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2614,6 +2719,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282505909}
   m_Mesh: {fileID: -8763054385224332203, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &282505918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282505909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &317614397
 GameObject:
   m_ObjectHideFlags: 0
@@ -2624,6 +2741,7 @@ GameObject:
   m_Component:
   - component: {fileID: 317614398}
   - component: {fileID: 317614405}
+  - component: {fileID: 317614406}
   - component: {fileID: 317614404}
   - component: {fileID: 317614403}
   - component: {fileID: 317614402}
@@ -2694,6 +2812,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &317614401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2800,6 +2921,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317614397}
   m_Mesh: {fileID: -6803126795945183499, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &317614406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317614397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &319007252
 GameObject:
   m_ObjectHideFlags: 0
@@ -2901,6 +3034,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &319007257
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2992,6 +3128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 383769409}
   - component: {fileID: 383769416}
+  - component: {fileID: 383769417}
   - component: {fileID: 383769415}
   - component: {fileID: 383769414}
   - component: {fileID: 383769413}
@@ -3062,6 +3199,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &383769412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3168,6 +3308,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 383769408}
   m_Mesh: {fileID: -320852265159221430, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &383769417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383769408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &404843824
 GameObject:
   m_ObjectHideFlags: 0
@@ -3517,6 +3669,7 @@ GameObject:
   m_Component:
   - component: {fileID: 457260357}
   - component: {fileID: 457260364}
+  - component: {fileID: 457260365}
   - component: {fileID: 457260363}
   - component: {fileID: 457260362}
   - component: {fileID: 457260361}
@@ -3587,6 +3740,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &457260360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3693,6 +3849,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457260356}
   m_Mesh: {fileID: -8993662152806946255, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &457260365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457260356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &487508443
 GameObject:
   m_ObjectHideFlags: 0
@@ -3703,6 +3871,7 @@ GameObject:
   m_Component:
   - component: {fileID: 487508444}
   - component: {fileID: 487508451}
+  - component: {fileID: 487508452}
   - component: {fileID: 487508450}
   - component: {fileID: 487508449}
   - component: {fileID: 487508448}
@@ -3773,6 +3942,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &487508447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3879,6 +4051,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487508443}
   m_Mesh: {fileID: -3835324025684857678, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &487508452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487508443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &493746521
 GameObject:
   m_ObjectHideFlags: 0
@@ -3889,6 +4073,7 @@ GameObject:
   m_Component:
   - component: {fileID: 493746522}
   - component: {fileID: 493746529}
+  - component: {fileID: 493746530}
   - component: {fileID: 493746528}
   - component: {fileID: 493746527}
   - component: {fileID: 493746526}
@@ -3959,6 +4144,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &493746525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4065,6 +4253,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 493746521}
   m_Mesh: {fileID: 5250512124066739325, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &493746530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493746521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &496315664
 GameObject:
   m_ObjectHideFlags: 0
@@ -4075,6 +4275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 496315665}
   - component: {fileID: 496315672}
+  - component: {fileID: 496315673}
   - component: {fileID: 496315671}
   - component: {fileID: 496315670}
   - component: {fileID: 496315669}
@@ -4145,6 +4346,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &496315668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4251,6 +4455,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496315664}
   m_Mesh: {fileID: 329252768916992946, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &496315673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496315664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &505046772
 GameObject:
   m_ObjectHideFlags: 0
@@ -4261,6 +4477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 505046773}
   - component: {fileID: 505046780}
+  - component: {fileID: 505046781}
   - component: {fileID: 505046779}
   - component: {fileID: 505046778}
   - component: {fileID: 505046777}
@@ -4331,6 +4548,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &505046776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4437,6 +4657,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505046772}
   m_Mesh: {fileID: -4121320486634614371, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &505046781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505046772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &541836593
 GameObject:
   m_ObjectHideFlags: 0
@@ -4447,6 +4679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 541836594}
   - component: {fileID: 541836601}
+  - component: {fileID: 541836602}
   - component: {fileID: 541836600}
   - component: {fileID: 541836599}
   - component: {fileID: 541836598}
@@ -4517,6 +4750,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &541836597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4623,6 +4859,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541836593}
   m_Mesh: {fileID: -6634905868956693498, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &541836602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541836593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &543798235
 GameObject:
   m_ObjectHideFlags: 0
@@ -4947,6 +5195,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &584981829
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5056,7 +5307,7 @@ Transform:
   m_GameObject: {fileID: 587024151}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 753.61, y: 14.764839, z: 57.23999}
+  m_LocalPosition: {x: 740.3297, y: 14.764839, z: 57.23999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5123,7 +5374,7 @@ Camera:
   m_GameObject: {fileID: 587024151}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -5175,6 +5426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 588894114}
   - component: {fileID: 588894121}
+  - component: {fileID: 588894122}
   - component: {fileID: 588894120}
   - component: {fileID: 588894119}
   - component: {fileID: 588894118}
@@ -5245,6 +5497,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &588894117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5351,6 +5606,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588894113}
   m_Mesh: {fileID: -163910806208302293, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &588894122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588894113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &589581272
 GameObject:
   m_ObjectHideFlags: 0
@@ -5413,7 +5680,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589581272}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5473,6 +5740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 604051946}
   - component: {fileID: 604051953}
+  - component: {fileID: 604051954}
   - component: {fileID: 604051952}
   - component: {fileID: 604051951}
   - component: {fileID: 604051950}
@@ -5543,6 +5811,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &604051949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5649,6 +5920,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604051945}
   m_Mesh: {fileID: 1172208886232006401, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &604051954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604051945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &611685631
 GameObject:
   m_ObjectHideFlags: 0
@@ -5771,6 +6054,7 @@ GameObject:
   m_Component:
   - component: {fileID: 613089347}
   - component: {fileID: 613089354}
+  - component: {fileID: 613089355}
   - component: {fileID: 613089353}
   - component: {fileID: 613089352}
   - component: {fileID: 613089351}
@@ -5841,6 +6125,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &613089350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5947,6 +6234,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613089346}
   m_Mesh: {fileID: -8756455390584947626, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &613089355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613089346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &613784989
 GameObject:
   m_ObjectHideFlags: 0
@@ -6088,7 +6387,7 @@ Transform:
   m_GameObject: {fileID: 651127259}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 749.6081, y: 1.027, z: 88.659}
+  m_LocalPosition: {x: 736.3278, y: 1.027, z: 88.659}
   m_LocalScale: {x: 2.150374, y: 0.21748, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6196,6 +6495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 669208604}
   - component: {fileID: 669208611}
+  - component: {fileID: 669208612}
   - component: {fileID: 669208610}
   - component: {fileID: 669208609}
   - component: {fileID: 669208608}
@@ -6266,6 +6566,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &669208607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6372,6 +6675,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 669208603}
   m_Mesh: {fileID: -3778815090236793374, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &669208612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669208603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &690272841
 GameObject:
   m_ObjectHideFlags: 0
@@ -6382,6 +6697,7 @@ GameObject:
   m_Component:
   - component: {fileID: 690272842}
   - component: {fileID: 690272849}
+  - component: {fileID: 690272850}
   - component: {fileID: 690272848}
   - component: {fileID: 690272847}
   - component: {fileID: 690272846}
@@ -6452,6 +6768,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &690272845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6558,6 +6877,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 690272841}
   m_Mesh: {fileID: 8015948503883921880, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &690272850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690272841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &710212315
 GameObject:
   m_ObjectHideFlags: 0
@@ -6658,6 +6989,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &710212320
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6839,6 +7173,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &762502047
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7020,6 +7357,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &763256571
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7111,6 +7451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 811367968}
   - component: {fileID: 811367975}
+  - component: {fileID: 811367976}
   - component: {fileID: 811367974}
   - component: {fileID: 811367973}
   - component: {fileID: 811367972}
@@ -7181,6 +7522,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &811367971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7287,6 +7631,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811367967}
   m_Mesh: {fileID: -6780643207631898753, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &811367976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811367967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &829182030
 GameObject:
   m_ObjectHideFlags: 0
@@ -7297,6 +7653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 829182031}
   - component: {fileID: 829182038}
+  - component: {fileID: 829182039}
   - component: {fileID: 829182037}
   - component: {fileID: 829182036}
   - component: {fileID: 829182035}
@@ -7367,6 +7724,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &829182034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7473,6 +7833,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829182030}
   m_Mesh: {fileID: -8938113942116407251, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &829182039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829182030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &851648837
 GameObject:
   m_ObjectHideFlags: 0
@@ -7483,6 +7855,7 @@ GameObject:
   m_Component:
   - component: {fileID: 851648838}
   - component: {fileID: 851648845}
+  - component: {fileID: 851648846}
   - component: {fileID: 851648844}
   - component: {fileID: 851648843}
   - component: {fileID: 851648842}
@@ -7553,6 +7926,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &851648841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7659,6 +8035,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 851648837}
   m_Mesh: {fileID: 7292726614116200338, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &851648846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851648837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &871986596
 GameObject:
   m_ObjectHideFlags: 0
@@ -7669,6 +8057,7 @@ GameObject:
   m_Component:
   - component: {fileID: 871986597}
   - component: {fileID: 871986604}
+  - component: {fileID: 871986605}
   - component: {fileID: 871986603}
   - component: {fileID: 871986602}
   - component: {fileID: 871986601}
@@ -7739,6 +8128,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &871986600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7845,6 +8237,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 871986596}
   m_Mesh: {fileID: -3146483500755380252, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &871986605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871986596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &929744376
 GameObject:
   m_ObjectHideFlags: 0
@@ -7945,6 +8349,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &929744381
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8036,6 +8443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 941569756}
   - component: {fileID: 941569763}
+  - component: {fileID: 941569764}
   - component: {fileID: 941569762}
   - component: {fileID: 941569761}
   - component: {fileID: 941569760}
@@ -8106,6 +8514,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &941569759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8212,6 +8623,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 941569755}
   m_Mesh: {fileID: -663994693834073737, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &941569764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941569755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &951168159
 GameObject:
   m_ObjectHideFlags: 0
@@ -8312,6 +8735,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &951168164
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8403,6 +8829,7 @@ GameObject:
   m_Component:
   - component: {fileID: 968452627}
   - component: {fileID: 968452634}
+  - component: {fileID: 968452635}
   - component: {fileID: 968452633}
   - component: {fileID: 968452632}
   - component: {fileID: 968452631}
@@ -8473,6 +8900,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &968452630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8579,6 +9009,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 968452626}
   m_Mesh: {fileID: 8171812697895500915, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &968452635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968452626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &987971442
 GameObject:
   m_ObjectHideFlags: 0
@@ -8589,6 +9031,7 @@ GameObject:
   m_Component:
   - component: {fileID: 987971443}
   - component: {fileID: 987971450}
+  - component: {fileID: 987971451}
   - component: {fileID: 987971449}
   - component: {fileID: 987971448}
   - component: {fileID: 987971447}
@@ -8659,6 +9102,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &987971446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8765,6 +9211,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987971442}
   m_Mesh: {fileID: 7954918939149536700, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &987971451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987971442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1000594856
 GameObject:
   m_ObjectHideFlags: 0
@@ -8865,6 +9323,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1000594861
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8956,6 +9417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1004587234}
   - component: {fileID: 1004587241}
+  - component: {fileID: 1004587242}
   - component: {fileID: 1004587240}
   - component: {fileID: 1004587239}
   - component: {fileID: 1004587238}
@@ -9026,6 +9488,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1004587237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9132,6 +9597,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004587233}
   m_Mesh: {fileID: -347920248143710720, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1004587242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004587233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1020441744
 GameObject:
   m_ObjectHideFlags: 0
@@ -9232,6 +9709,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1020441749
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9413,6 +9893,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1052058687
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9594,6 +10077,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1058085043
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9806,6 +10292,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1100600674
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9987,6 +10476,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1132086743
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10168,6 +10660,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1206449739
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10349,6 +10844,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1232092214
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10440,6 +10938,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1243931160}
   - component: {fileID: 1243931167}
+  - component: {fileID: 1243931168}
   - component: {fileID: 1243931166}
   - component: {fileID: 1243931165}
   - component: {fileID: 1243931164}
@@ -10510,6 +11009,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1243931163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10616,6 +11118,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243931159}
   m_Mesh: {fileID: 5720021652848065653, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1243931168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243931159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1272738666
 GameObject:
   m_ObjectHideFlags: 0
@@ -10717,6 +11231,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1272738671
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10808,6 +11325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1294335967}
   - component: {fileID: 1294335974}
+  - component: {fileID: 1294335975}
   - component: {fileID: 1294335973}
   - component: {fileID: 1294335972}
   - component: {fileID: 1294335971}
@@ -10878,6 +11396,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1294335970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10984,6 +11505,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1294335966}
   m_Mesh: {fileID: 3310876173992876609, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1294335975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294335966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1295631359
 GameObject:
   m_ObjectHideFlags: 0
@@ -10994,6 +11527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1295631360}
   - component: {fileID: 1295631367}
+  - component: {fileID: 1295631368}
   - component: {fileID: 1295631366}
   - component: {fileID: 1295631365}
   - component: {fileID: 1295631364}
@@ -11064,6 +11598,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1295631363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11170,6 +11707,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295631359}
   m_Mesh: {fileID: -6264995792481539477, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1295631368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295631359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1307205340
 GameObject:
   m_ObjectHideFlags: 0
@@ -11335,6 +11884,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1329890736
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11426,6 +11978,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1332491945}
   - component: {fileID: 1332491952}
+  - component: {fileID: 1332491953}
   - component: {fileID: 1332491951}
   - component: {fileID: 1332491950}
   - component: {fileID: 1332491949}
@@ -11496,6 +12049,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1332491948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11602,6 +12158,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332491944}
   m_Mesh: {fileID: 3607289776374940349, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1332491953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332491944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1349901356
 GameObject:
   m_ObjectHideFlags: 0
@@ -11612,6 +12180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1349901357}
   - component: {fileID: 1349901364}
+  - component: {fileID: 1349901365}
   - component: {fileID: 1349901363}
   - component: {fileID: 1349901362}
   - component: {fileID: 1349901361}
@@ -11682,6 +12251,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1349901360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11788,6 +12360,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349901356}
   m_Mesh: {fileID: -3566121988215155680, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1349901365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349901356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1356614761
 GameObject:
   m_ObjectHideFlags: 0
@@ -11888,6 +12472,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1356614766
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12069,6 +12656,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1418297337
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12160,6 +12750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1435934480}
   - component: {fileID: 1435934487}
+  - component: {fileID: 1435934488}
   - component: {fileID: 1435934486}
   - component: {fileID: 1435934485}
   - component: {fileID: 1435934484}
@@ -12230,6 +12821,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1435934483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12336,6 +12930,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1435934479}
   m_Mesh: {fileID: -5324593529123505372, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1435934488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435934479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1471713297
 GameObject:
   m_ObjectHideFlags: 0
@@ -12346,6 +12952,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1471713298}
   - component: {fileID: 1471713305}
+  - component: {fileID: 1471713306}
   - component: {fileID: 1471713304}
   - component: {fileID: 1471713303}
   - component: {fileID: 1471713302}
@@ -12416,6 +13023,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1471713301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12522,6 +13132,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1471713297}
   m_Mesh: {fileID: -1957375499372576735, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1471713306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471713297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1492425637
 GameObject:
   m_ObjectHideFlags: 0
@@ -12532,6 +13154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1492425638}
   - component: {fileID: 1492425645}
+  - component: {fileID: 1492425646}
   - component: {fileID: 1492425644}
   - component: {fileID: 1492425643}
   - component: {fileID: 1492425642}
@@ -12602,6 +13225,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1492425641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12708,6 +13334,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1492425637}
   m_Mesh: {fileID: -5788131354385413816, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1492425646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492425637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1517241973
 GameObject:
   m_ObjectHideFlags: 0
@@ -13018,6 +13656,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!212 &1519628527
 SpriteRenderer:
   serializedVersion: 3
@@ -13088,6 +13729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1520891146}
   - component: {fileID: 1520891153}
+  - component: {fileID: 1520891154}
   - component: {fileID: 1520891152}
   - component: {fileID: 1520891151}
   - component: {fileID: 1520891150}
@@ -13158,6 +13800,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1520891149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13264,6 +13909,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1520891145}
   m_Mesh: {fileID: 7062091003832102795, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1520891154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520891145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1552138675
 GameObject:
   m_ObjectHideFlags: 0
@@ -13364,6 +14021,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1552138680
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13461,7 +14121,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1560819727
 Transform:
   m_ObjectHideFlags: 0
@@ -13471,7 +14131,7 @@ Transform:
   m_GameObject: {fileID: 1560819726}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 753.6105, y: 10.707001, z: 57.2641}
+  m_LocalPosition: {x: 740.3302, y: 10.707001, z: 57.2641}
   m_LocalScale: {x: 0.11324147, y: 0.11362757, z: 0.050961982}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -13637,6 +14297,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1562169085
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13931,6 +14594,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1595805688
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14113,6 +14779,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1631832380
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14406,6 +15075,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1661260823
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14609,6 +15281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1669844410}
   - component: {fileID: 1669844417}
+  - component: {fileID: 1669844418}
   - component: {fileID: 1669844416}
   - component: {fileID: 1669844415}
   - component: {fileID: 1669844414}
@@ -14679,6 +15352,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1669844413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14785,6 +15461,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1669844409}
   m_Mesh: {fileID: 2621966772567755350, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1669844418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669844409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1675736698
 GameObject:
   m_ObjectHideFlags: 0
@@ -14795,6 +15483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1675736699}
   - component: {fileID: 1675736706}
+  - component: {fileID: 1675736707}
   - component: {fileID: 1675736705}
   - component: {fileID: 1675736704}
   - component: {fileID: 1675736703}
@@ -14865,6 +15554,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1675736702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14971,6 +15663,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675736698}
   m_Mesh: {fileID: 236610109295114439, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1675736707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675736698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1711589465
 GameObject:
   m_ObjectHideFlags: 0
@@ -15071,6 +15775,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1711589470
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15162,6 +15869,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1728829263}
   - component: {fileID: 1728829270}
+  - component: {fileID: 1728829271}
   - component: {fileID: 1728829269}
   - component: {fileID: 1728829268}
   - component: {fileID: 1728829267}
@@ -15232,6 +15940,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1728829266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15338,6 +16049,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1728829262}
   m_Mesh: {fileID: -9010312082325326863, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1728829271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728829262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1732695613
 GameObject:
   m_ObjectHideFlags: 0
@@ -15578,6 +16301,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1765329699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15669,6 +16395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1775910341}
   - component: {fileID: 1775910348}
+  - component: {fileID: 1775910349}
   - component: {fileID: 1775910347}
   - component: {fileID: 1775910346}
   - component: {fileID: 1775910345}
@@ -15739,6 +16466,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1775910344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15845,6 +16575,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1775910340}
   m_Mesh: {fileID: -3199402317894307058, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1775910349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775910340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1783806408
 GameObject:
   m_ObjectHideFlags: 0
@@ -15945,6 +16687,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1783806413
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16526,6 +17271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1885797173}
   - component: {fileID: 1885797180}
+  - component: {fileID: 1885797181}
   - component: {fileID: 1885797179}
   - component: {fileID: 1885797178}
   - component: {fileID: 1885797177}
@@ -16596,6 +17342,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1885797176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16702,6 +17451,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1885797172}
   m_Mesh: {fileID: -2096243831294786487, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1885797181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885797172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1919256556
 GameObject:
   m_ObjectHideFlags: 0
@@ -16802,6 +17563,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1919256561
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16893,6 +17657,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1932328379}
   - component: {fileID: 1932328386}
+  - component: {fileID: 1932328387}
   - component: {fileID: 1932328385}
   - component: {fileID: 1932328384}
   - component: {fileID: 1932328383}
@@ -16963,6 +17728,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1932328382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17069,6 +17837,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1932328378}
   m_Mesh: {fileID: 3052586463302511157, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1932328387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932328378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1945826898
 GameObject:
   m_ObjectHideFlags: 0
@@ -17169,6 +17949,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1945826903
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17275,7 +18058,7 @@ Transform:
   m_GameObject: {fileID: 1948167918}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 749.1756, y: 1.16163, z: 88.54359}
+  m_LocalPosition: {x: 735.8953, y: 1.16163, z: 88.54359}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17291,6 +18074,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1948314052}
   - component: {fileID: 1948314059}
+  - component: {fileID: 1948314060}
   - component: {fileID: 1948314058}
   - component: {fileID: 1948314057}
   - component: {fileID: 1948314056}
@@ -17361,6 +18145,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &1948314055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17467,6 +18254,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948314051}
   m_Mesh: {fileID: -1896983935988758715, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &1948314060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948314051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &1966808489
 GameObject:
   m_ObjectHideFlags: 0
@@ -17567,6 +18366,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1966808494
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17748,6 +18550,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &1970512932
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17859,8 +18664,8 @@ Transform:
   m_GameObject: {fileID: 2004740215}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -31.32, y: 10.71, z: -3.24}
-  m_LocalScale: {x: 0.08286981, y: 0.023203548, z: 0.08286981}
+  m_LocalPosition: {x: -31.319, y: 10.711, z: -3.2421}
+  m_LocalScale: {x: 0.061774474, y: 0.017296853, z: 0.061774474}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 450613183}
@@ -17929,7 +18734,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InvertedGravityController
   camaraRender: {fileID: 587024155}
-  pantallaReferencia: {fileID: 1560819727}
+  margenGrados: 20
+  invertirGravedadX: 1
+  invertirGravedadZ: 0
   velocidadMax: 0.3
   aceleracionSuelo: 60
   desaceleracionSuelo: 60
@@ -17942,6 +18749,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 450613185}
   vectorGravedad: {x: 0, y: 0, z: -1}
   vectorSalto: {x: 0, y: 0, z: 1}
+  vectorDerecha: {x: 1, y: 0, z: 0}
 --- !u!23 &2004740220
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18009,6 +18817,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2027614820}
   - component: {fileID: 2027614827}
+  - component: {fileID: 2027614828}
   - component: {fileID: 2027614826}
   - component: {fileID: 2027614825}
   - component: {fileID: 2027614824}
@@ -18079,6 +18888,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &2027614823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18185,6 +18997,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2027614819}
   m_Mesh: {fileID: -8857081958450330718, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &2027614828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027614819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &2043985818
 GameObject:
   m_ObjectHideFlags: 0
@@ -18210,7 +19034,7 @@ Transform:
   m_GameObject: {fileID: 2043985818}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 749.64026, y: 0, z: 88.62048}
+  m_LocalPosition: {x: 736.36, y: 0, z: 88.62048}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18231,6 +19055,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2068783890}
   - component: {fileID: 2068783897}
+  - component: {fileID: 2068783898}
   - component: {fileID: 2068783896}
   - component: {fileID: 2068783895}
   - component: {fileID: 2068783894}
@@ -18301,6 +19126,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &2068783893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18407,6 +19235,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068783889}
   m_Mesh: {fileID: 5395897849768614021, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &2068783898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068783889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &2073494290
 GameObject:
   m_ObjectHideFlags: 0
@@ -18417,6 +19257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2073494291}
   - component: {fileID: 2073494298}
+  - component: {fileID: 2073494299}
   - component: {fileID: 2073494297}
   - component: {fileID: 2073494296}
   - component: {fileID: 2073494295}
@@ -18487,6 +19328,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.15
   velocidadElevacion: 8
   velocidadRotacion: 5
+  rotarEnX: 0
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!114 &2073494294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18593,6 +19437,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073494290}
   m_Mesh: {fileID: 7368968771768644213, guid: f6c129d62fb50db4b88c86ad906b3108, type: 3}
+--- !u!114 &2073494299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073494290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df847a6b97d8d478d7ae7a5f342376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectorUV
 --- !u!1 &2088367110
 GameObject:
   m_ObjectHideFlags: 0
@@ -18693,6 +19549,9 @@ MonoBehaviour:
   elevacionAlAgarrar: 0.1
   velocidadElevacion: 15
   velocidadRotacion: 10
+  rotarEnX: 1
+  rotarEnY: 1
+  rotarEnZ: 0
 --- !u!65 &2088367115
 BoxCollider:
   m_ObjectHideFlags: 0

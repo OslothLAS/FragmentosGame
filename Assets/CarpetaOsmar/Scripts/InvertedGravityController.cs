@@ -49,6 +49,8 @@ public class InvertedGravityController : MonoBehaviour
     private bool enEscalera;
     private bool escalando;
 
+    private Quaternion rotacionSpriteInicial;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -57,9 +59,13 @@ public class InvertedGravityController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
         rb.sleepThreshold = 0f;
 
-        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
-        // Corregido el parámetro obsoleto
+        if (spriteRenderer != null)
+        {
+            rotacionSpriteInicial = spriteRenderer.transform.localRotation;
+        }
+
         todosLosFragmentos = Object.FindObjectsByType<DetectorUV>(FindObjectsInactive.Exclude);
 
         foreach (DetectorUV frag in todosLosFragmentos)
@@ -140,7 +146,6 @@ public class InvertedGravityController : MonoBehaviour
             }
         }
 
-        // --- INVERSIÓN DESDE EL EDITOR ---
         if (invertirGravedadX)
         {
             if (nuevaGravedad == Vector3.left) nuevaGravedad = Vector3.right;
@@ -217,6 +222,20 @@ public class InvertedGravityController : MonoBehaviour
         float inputHorizontal = Input.GetAxisRaw("Horizontal");
         if (inputHorizontal > 0.01f) spriteRenderer.flipX = false;
         else if (inputHorizontal < -0.01f) spriteRenderer.flipX = true;
+
+        if (spriteRenderer != null)
+        {
+            // Solo rotamos 180° en Z si la gravedad es exactamente hacia arriba (Techo)
+            if (vectorGravedad == Vector3.forward)
+            {
+                spriteRenderer.transform.localRotation = rotacionSpriteInicial * Quaternion.Euler(0f, 0f, 180f);
+            }
+            else
+            {
+                // En cualquier otro caso (piso normal o paredes), el sprite se mantiene derecho
+                spriteRenderer.transform.localRotation = rotacionSpriteInicial;
+            }
+        }
     }
 
     private void OnCollisionStay(Collision collision)
