@@ -61,7 +61,7 @@ Material:
     - _main_noise: 29
     - _noise2n: 11.2
     - _parallax_BG: 75.4
-    - _parallax_Gameplay: 5
+    - _parallax_Gameplay: -18.73
     - _particles_variation: 2
     - _power: 14.1
     - _wind_speed2: -0.3
@@ -70,6 +70,6 @@ Material:
     m_Colors:
     - _BG_Offset: {r: 0, g: 0.35, b: 0, a: 0}
     - _BG_Scale: {r: 1, g: 1.77, b: 0, a: 0}
-    - _BG_color_correction: {r: 0.335849, g: 0.335849, b: 0.335849, a: 1}
+    - _BG_color_correction: {r: 0.645283, g: 0.645283, b: 0.645283, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
