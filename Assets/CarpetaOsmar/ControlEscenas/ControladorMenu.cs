@@ -16,8 +16,7 @@ public class ControladorMenu : MonoBehaviour
 
     void Start()
     {
-        // Por seguridad, nos aseguramos de que el panel arranque apagado 
-        // por si te quedó prendido por accidente en el Editor
+
         if (panelCreditos != null)
         {
             panelCreditos.SetActive(false);

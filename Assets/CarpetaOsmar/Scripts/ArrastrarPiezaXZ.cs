@@ -2,6 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(MeshCollider))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(AudioSource))] // Agrega automáticamente el parlante
 public class ArrastrarPiezaXZ : MonoBehaviour
 {
     [Header("Configuración Visual")]
@@ -9,12 +10,17 @@ public class ArrastrarPiezaXZ : MonoBehaviour
     public float velocidadElevacion = 15f;
     public float velocidadRotacion = 5f;
 
+    [Header("Efectos de Sonido")]
+    [Tooltip("Arrastrá acá tus 7 sonidos de agarre")]
+    public AudioClip[] sonidosGrab;
+    [Tooltip("Arrastrá acá tus 5 sonidos de soltar")]
+    public AudioClip[] sonidosDrop;
+    [Range(0f, 1f)] public float volumenSonidos = 0.8f;
+
     [Header("Restricciones de Rotación")]
     public bool rotarEnX = true;
     public bool rotarEnY = true;
     public bool rotarEnZ = false;
-
-    // NUEVO: Propiedad pública para que el jugador sepa si esta pieza está en el aire
     public bool EstaSiendoManipulada => siendoArrastrado || rotando;
 
     private Camera camaraPrincipal;
@@ -22,6 +28,7 @@ public class ArrastrarPiezaXZ : MonoBehaviour
     private Plane planoDeArrastre;
     private MeshCollider miCollider;
     private Rigidbody rb;
+    private AudioSource audioSource; // Referencia al parlante
 
     private bool siendoArrastrado = false;
     private bool rotando = false;
@@ -41,15 +48,32 @@ public class ArrastrarPiezaXZ : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
+
+        // Configuramos el AudioSource por código
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f; // 1 = Sonido 3D (suena desde donde está la pieza)
+    }
+
+    // --- SISTEMA DE AUDIO ALEATORIO ---
+    private void ReproducirSonidoAleatorio(AudioClip[] listaDeSonidos)
+    {
+        if (listaDeSonidos == null || listaDeSonidos.Length == 0) return;
+
+        // Elegimos un número al azar entre 0 y la cantidad de sonidos en tu lista
+        int indiceAleatorio = Random.Range(0, listaDeSonidos.Length);
+
+        // PlayOneShot reproduce el sonido entero sin interrumpir otros sonidos
+        audioSource.PlayOneShot(listaDeSonidos[indiceAleatorio], volumenSonidos);
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonUp(1))
+        // Corrección aplicada: Solo si ESTA pieza estaba rotando
+        if (rotando && Input.GetMouseButtonUp(1))
         {
             rotando = false;
 
-            // Liberamos el mouse sin teletransportarlo
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
@@ -66,6 +90,7 @@ public class ArrastrarPiezaXZ : MonoBehaviour
             else
             {
                 rb.isKinematic = false;
+                ReproducirSonidoAleatorio(sonidosDrop); // <- DROP ACÁ
             }
         }
 
@@ -74,8 +99,8 @@ public class ArrastrarPiezaXZ : MonoBehaviour
             rotando = true;
             rotacionObjetivo = rb.rotation;
 
-            // CONFINED: Lo atrapa en la ventana pero lo deja donde está
-            Cursor.lockState = CursorLockMode.Confined;
+            // Corrección aplicada: Locked en vez de Confined
+            Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
 
@@ -118,12 +143,17 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         {
             if (Input.GetMouseButton(0)) return;
 
+            // Solo hacemos sonido si no la estábamos tocando ya
+            if (!EstaSiendoManipulada)
+            {
+                ReproducirSonidoAleatorio(sonidosGrab); // <- GRAB ACÁ
+            }
+
             rotando = true;
             rb.isKinematic = true;
             rotacionObjetivo = rb.rotation;
 
-            // CONFINED: Lo atrapa en la ventana pero lo deja donde está
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
             if (!siendoArrastrado)
@@ -136,6 +166,12 @@ public class ArrastrarPiezaXZ : MonoBehaviour
     void OnMouseDown()
     {
         if (camaraPrincipal == null) return;
+
+        // Solo hacemos sonido si no la estábamos tocando ya
+        if (!EstaSiendoManipulada)
+        {
+            ReproducirSonidoAleatorio(sonidosGrab); // <- GRAB ACÁ
+        }
 
         siendoArrastrado = true;
         rb.isKinematic = true;
@@ -179,7 +215,12 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         if (!siendoArrastrado) return;
 
         siendoArrastrado = false;
-        if (!rotando) rb.isKinematic = false;
+
+        if (!rotando)
+        {
+            rb.isKinematic = false;
+            ReproducirSonidoAleatorio(sonidosDrop); // <- DROP ACÁ
+        }
     }
 
     void OnDisable()

@@ -13,16 +13,12 @@ public class GestorDeNiveles : MonoBehaviour
 
     void Start()
     {
-        // 1. Por seguridad, apagamos todos los niveles primero
         foreach (GameObject nivel in niveles)
         {
             nivel.SetActive(false);
         }
-
-        // 2. Leemos la variable estática que seteó el menú
         int indice = ControladorMenu.nivelSeleccionado;
 
-        // 3. Validamos que el índice exista en el array y prendemos ese GameObject
         if (indice >= 0 && indice < niveles.Length)
         {
             niveles[indice].SetActive(true);
@@ -34,19 +30,25 @@ public class GestorDeNiveles : MonoBehaviour
         }
     }
 
-    // --- Función para volver al inicio ---
     public void VolverAlMenu()
     {
         Debug.Log("Volviendo al menú principal...");
+
+        // 1. Liberamos y mostramos el cursor ANTES de cambiar de escena
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         SceneManager.LoadScene(nombreEscenaMenu);
     }
 
-    // --- NUEVA: Función para reiniciar el nivel actual ---
     public void ReiniciarNivel()
     {
         Debug.Log("Reiniciando el nivel...");
-        // SceneManager.GetActiveScene().name obtiene el nombre de la escena en la que estás ahora
-        // Al cargarla de nuevo, todo vuelve a su estado inicial de fábrica
+
+        // Hacemos lo mismo acá por si el jugador reinicia mientras rota una pieza
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
