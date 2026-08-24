@@ -3,40 +3,48 @@ using UnityEngine;
 public class Carrousel : MonoBehaviour
 {
     [Header("Configuración del Tutorial")]
-    [Tooltip("El panel principal que envuelve todo (el que se va a apagar al final)")]
     public GameObject panelContenedor;
-
-    [Tooltip("Arrastrá acá tus 4 GameObjects en orden (Paso 1, Paso 2, etc.)")]
     public GameObject[] pasosTutorial;
+
+    [Tooltip("El nombre interno para guardar que ya se vio este tutorial")]
+    public string claveGuardado = "TutorialCompletado";
 
     private int pasoActual = 0;
 
     void Start()
     {
-        // Nos aseguramos de que el contenedor esté prendido
+        // 1. CHEQUEO: Preguntamos si en el disco duro ya quedó guardado el valor '1' (Completado)
+        if (PlayerPrefs.GetInt(claveGuardado, 0) == 1)
+        {
+            // Ya lo completó antes. Apagamos el panel y cortamos el Start acá mismo.
+            if (panelContenedor != null) panelContenedor.SetActive(false);
+            return;
+        }
+
+        // Si no lo completó (da 0), hacemos la secuencia normal:
         if (panelContenedor != null)
         {
             panelContenedor.SetActive(true);
         }
 
-        // Reseteamos el contador a 0 y mostramos solo el primer cartel
         pasoActual = 0;
         ActualizarPantallas();
     }
 
-    // Esta es la función que vas a llamar desde tu botón "Siguiente"
     public void SiguientePaso()
     {
-        pasoActual++; // Sumamos 1 al contador
+        pasoActual++;
 
-        // Si todavía nos quedan pasos por mostrar...
         if (pasoActual < pasosTutorial.Length)
         {
             ActualizarPantallas();
         }
         else
         {
-            // Si ya pasamos el último elemento, apagamos el contenedor principal
+            // 2. GUARDADO: Como pasamos el último cartel, guardamos un '1' de forma permanente
+            PlayerPrefs.SetInt(claveGuardado, 1);
+            PlayerPrefs.Save();
+
             if (panelContenedor != null)
             {
                 panelContenedor.SetActive(false);
@@ -46,14 +54,21 @@ public class Carrousel : MonoBehaviour
 
     private void ActualizarPantallas()
     {
-        // Recorremos todos los elementos de la lista
         for (int i = 0; i < pasosTutorial.Length; i++)
         {
             if (pasosTutorial[i] != null)
             {
-                // Solo se prende el que coincide con nuestro número de 'pasoActual', el resto se apaga
                 pasosTutorial[i].SetActive(i == pasoActual);
             }
         }
+    }
+
+    // --- TRUCO PARA TESTEO ---
+    // Esto te permite hacer clic derecho sobre el script en el Inspector y resetear la variable
+    [ContextMenu("Resetear Tutorial (Solo para Pruebas)")]
+    public void ResetearTutorial()
+    {
+        PlayerPrefs.DeleteKey(claveGuardado);
+        Debug.Log("Tutorial reseteado. Volverá a aparecer la próxima vez que des Play.");
     }
 }

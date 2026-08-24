@@ -9,6 +9,11 @@ public class ControladorCursorNativo : MonoBehaviour
     void Awake()
     {
         Cursor.visible = true;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        Cursor.SetCursor(cursorReposo, hotspot, CursorMode.ForceSoftware);
+#else
         Cursor.SetCursor(cursorReposo, hotspot, CursorMode.Auto);
+#endif
     }
 }
