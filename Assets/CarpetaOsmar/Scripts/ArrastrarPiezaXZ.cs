@@ -1,8 +1,9 @@
 using UnityEngine;
+using System.Runtime.InteropServices; // NUEVO: Necesario para interactuar con la API del Sistema Operativo
 
 [RequireComponent(typeof(MeshCollider))]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(AudioSource))] // Agrega automáticamente el parlante
+[RequireComponent(typeof(AudioSource))]
 public class ArrastrarPiezaXZ : MonoBehaviour
 {
     [Header("Configuración Visual")]
@@ -28,12 +29,38 @@ public class ArrastrarPiezaXZ : MonoBehaviour
     private Plane planoDeArrastre;
     private MeshCollider miCollider;
     private Rigidbody rb;
-    private AudioSource audioSource; // Referencia al parlante
+    private AudioSource audioSource;
 
     private bool siendoArrastrado = false;
     private bool rotando = false;
     private Vector3 posicionObjetivo;
     private Quaternion rotacionObjetivo;
+
+    // --- NUEVO: INTEGRACIÓN CON WINDOWS API PARA EL CURSOR ---
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+    [DllImport("user32.dll")]
+    private static extern bool SetCursorPos(int X, int Y);
+    [DllImport("user32.dll")]
+    private static extern bool GetCursorPos(out POINT lpPoint);
+
+    public struct POINT { public int X; public int Y; }
+    private POINT posicionFisicaDelMouse;
+#endif
+
+    private void GuardarPosicionMouse()
+    {
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+        GetCursorPos(out posicionFisicaDelMouse);
+#endif
+    }
+
+    private void RestaurarPosicionMouse()
+    {
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+        SetCursorPos(posicionFisicaDelMouse.X, posicionFisicaDelMouse.Y);
+#endif
+    }
+    // ---------------------------------------------------------
 
     void Start()
     {
@@ -49,33 +76,29 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
 
-        // Configuramos el AudioSource por código
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 1f; // 1 = Sonido 3D (suena desde donde está la pieza)
+        audioSource.spatialBlend = 1f;
     }
 
-    // --- SISTEMA DE AUDIO ALEATORIO ---
     private void ReproducirSonidoAleatorio(AudioClip[] listaDeSonidos)
     {
         if (listaDeSonidos == null || listaDeSonidos.Length == 0) return;
-
-        // Elegimos un número al azar entre 0 y la cantidad de sonidos en tu lista
         int indiceAleatorio = Random.Range(0, listaDeSonidos.Length);
-
-        // PlayOneShot reproduce el sonido entero sin interrumpir otros sonidos
         audioSource.PlayOneShot(listaDeSonidos[indiceAleatorio], volumenSonidos);
     }
 
     void Update()
     {
-        // Corrección aplicada: Solo si ESTA pieza estaba rotando
         if (rotando && Input.GetMouseButtonUp(1))
         {
             rotando = false;
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            // NUEVO: Devolvemos el mouse a su lugar original
+            RestaurarPosicionMouse();
 
             if (siendoArrastrado)
             {
@@ -90,16 +113,18 @@ public class ArrastrarPiezaXZ : MonoBehaviour
             else
             {
                 rb.isKinematic = false;
-                ReproducirSonidoAleatorio(sonidosDrop); // <- DROP ACÁ
+                ReproducirSonidoAleatorio(sonidosDrop);
             }
         }
 
         if (siendoArrastrado && Input.GetMouseButtonDown(1))
         {
+            // NUEVO: Guardamos dónde estaba antes de ocultarlo
+            GuardarPosicionMouse();
+
             rotando = true;
             rotacionObjetivo = rb.rotation;
 
-            // Corrección aplicada: Locked en vez de Confined
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -143,11 +168,13 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         {
             if (Input.GetMouseButton(0)) return;
 
-            // Solo hacemos sonido si no la estábamos tocando ya
             if (!EstaSiendoManipulada)
             {
-                ReproducirSonidoAleatorio(sonidosGrab); // <- GRAB ACÁ
+                ReproducirSonidoAleatorio(sonidosGrab);
             }
+
+            // NUEVO: Guardamos la posición del mouse
+            GuardarPosicionMouse();
 
             rotando = true;
             rb.isKinematic = true;
@@ -167,10 +194,9 @@ public class ArrastrarPiezaXZ : MonoBehaviour
     {
         if (camaraPrincipal == null) return;
 
-        // Solo hacemos sonido si no la estábamos tocando ya
         if (!EstaSiendoManipulada)
         {
-            ReproducirSonidoAleatorio(sonidosGrab); // <- GRAB ACÁ
+            ReproducirSonidoAleatorio(sonidosGrab);
         }
 
         siendoArrastrado = true;
@@ -219,7 +245,7 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         if (!rotando)
         {
             rb.isKinematic = false;
-            ReproducirSonidoAleatorio(sonidosDrop); // <- DROP ACÁ
+            ReproducirSonidoAleatorio(sonidosDrop);
         }
     }
 
@@ -229,19 +255,8 @@ public class ArrastrarPiezaXZ : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            // NUEVO: Nos aseguramos de soltarlo en su lugar si el objeto se desactiva
+            RestaurarPosicionMouse();
         }
-    }
-
-    private bool EstaTocandoAlJugador()
-    {
-        Vector3 centro = miCollider.bounds.center;
-        Vector3 tamanoMedio = miCollider.bounds.size / 2f;
-        Collider[] colisiones = Physics.OverlapBox(centro, tamanoMedio, transform.rotation);
-
-        foreach (Collider col in colisiones)
-        {
-            if (col.CompareTag("Player")) return true;
-        }
-        return false;
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System.Collections; // NUEVO: Necesario para usar IEnumerator y Corrutinas
+using System.Collections;
 
 public class GestorNivel : MonoBehaviour
 {
@@ -47,22 +47,27 @@ public class GestorNivel : MonoBehaviour
 
         int indiceNivel = ControladorMenu.nivelSeleccionado;
 
-        if (objetoTutorial != null) objetoTutorial.SetActive(indiceNivel == 0);
-        if (objetoNivel2 != null) objetoNivel2.SetActive(indiceNivel == 1);
+        // --- NUEVO: Lógica unificada para mostrar y ocultar a los 10 segundos ---
 
-        // --- NUEVO: Lógica del cartel temporal para el Nivel 4 ---
-        // Asumiendo que el Tutorial es 0, Nivel 2 es 1, Nivel 3 es 2, y Nivel 4 es 3.
+        if (objetoTutorial != null)
+        {
+            bool activo = (indiceNivel == 0);
+            objetoTutorial.SetActive(activo);
+            if (activo) StartCoroutine(DesactivarObjetoDespuesDeTiempo(objetoTutorial, 10f));
+        }
+
+        if (objetoNivel2 != null)
+        {
+            bool activo = (indiceNivel == 1);
+            objetoNivel2.SetActive(activo);
+            if (activo) StartCoroutine(DesactivarObjetoDespuesDeTiempo(objetoNivel2, 10f));
+        }
+
         if (objetoNivel4 != null)
         {
-            if (indiceNivel == 4)
-            {
-                objetoNivel4.SetActive(true);
-                StartCoroutine(DesactivarCartelNivel4()); // Iniciamos el contador de 10 segundos
-            }
-            else
-            {
-                objetoNivel4.SetActive(false); // Nos aseguramos de que esté apagado en otros niveles
-            }
+            bool activo = (indiceNivel == 4);
+            objetoNivel4.SetActive(activo);
+            if (activo) StartCoroutine(DesactivarObjetoDespuesDeTiempo(objetoNivel4, 10f));
         }
 
         ActualizarPantalla();
@@ -95,16 +100,16 @@ public class GestorNivel : MonoBehaviour
         }
     }
 
-    // --- NUEVO: Corrutina que espera 10 segundos asincrónicamente ---
-    private IEnumerator DesactivarCartelNivel4()
+    // --- NUEVO: Corrutina general y reutilizable ---
+    private IEnumerator DesactivarObjetoDespuesDeTiempo(GameObject objetoTemporal, float tiempoEspera)
     {
-        // Suspende la ejecución de esta función durante 10 segundos de tiempo de juego
-        yield return new WaitForSeconds(10f);
+        // Suspende la ejecución durante los segundos indicados (10 en este caso)
+        yield return new WaitForSeconds(tiempoEspera);
 
-        if (objetoNivel4 != null)
+        // Verifica que el objeto siga existiendo antes de apagarlo
+        if (objetoTemporal != null)
         {
-            objetoNivel4.SetActive(false);
-            Debug.Log("Pasaron los 10 segundos. Cartel del nivel 4 desactivado.");
+            objetoTemporal.SetActive(false);
         }
     }
 
@@ -112,11 +117,17 @@ public class GestorNivel : MonoBehaviour
     {
         cartelEspecialMostrado = true;
 
-        if (cartelClickDerecho != null) cartelClickDerecho.SetActive(true);
+        if (cartelClickDerecho != null)
+        {
+            cartelClickDerecho.SetActive(true);
+            // Iniciamos el temporizador apenas el jugador logra activar el cartel
+            StartCoroutine(DesactivarObjetoDespuesDeTiempo(cartelClickDerecho, 10f));
+        }
+
         if (objetoTutorial != null) objetoTutorial.SetActive(false);
         if (objetoNivel2 != null) objetoNivel2.SetActive(false);
 
-        Debug.Log("Se mantuvo el click derecho 0.5s: Cartel especial activado.");
+        Debug.Log("Se mantuvo el click derecho 0.5s: Cartel especial activado por 10 segundos.");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -214,7 +225,7 @@ public class GestorNivel : MonoBehaviour
             if (cartelClickDerecho != null) cartelClickDerecho.SetActive(false);
             if (objetoNivel2 != null) objetoNivel2.SetActive(false);
             if (objetoTutorial != null) objetoTutorial.SetActive(false);
-            if (objetoNivel4 != null) objetoNivel4.SetActive(false); // Nos aseguramos de apagarlo también al ganar
+            if (objetoNivel4 != null) objetoNivel4.SetActive(false);
             pantallaVictoria.SetActive(true);
 
             Cursor.lockState = CursorLockMode.None;
