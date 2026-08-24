@@ -1449,7 +1449,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 42c16f75f61559d4aa0788dc10e7b4aa, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.746
+  m_Volume: 0.615
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2597,11 +2597,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "CR\xC9DITOS\r\n\r\nProgramaci\xF3n\r\nGohan Andr\xE9s Aristiz\xE1bal Herrera\r\nOsmar
-    Daniel Silvero Ruiz\r\n\r\nArte 2D / Concept Art\r\nLuciana Quiroga\r\n\r\nArte
-    2D / Game Design\r\nGiuliana Desir\xE9e Escobar\r\n\r\nArte 3D / Audio\r\nSebastian
-    Villalba\r\n\r\natribuciones arte externo:\r\nOld Wooden Table por Alex Krush
-    - https://fab.com/s/613c386f31c1\r\n\r\nAmbient Sounds by JDSherbert \u2013 https://jdsherbert.itch.io/\r\nFree
+  m_text: "CR\xC9DITOS\n\nProgramaci\xF3n\nGohan Andr\xE9s Aristiz\xE1bal Herrera\nOsmar
+    Daniel Silvero Ruiz\n\nArte 2D / Concept Art\nLuciana Quiroga\n\nArte 2D / Game
+    Design\nGiuliana Desir\xE9e Escobar\n\nArte 3D / Audio\nSebastian Villalba\n\natribuciones
+    arte externo:\nOld Wooden Table por Alex Krush - https://fab.com/s/613c386f31c1\n\nFree
     Fantasy SFX Pack - by TomMusic - https://tommusic.itch.io/free-fantasy-200-sfx-pack"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 789726bf6490e0448a0a93dbd5dc63ad, type: 2}

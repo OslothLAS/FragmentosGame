@@ -91,6 +91,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\InvertedGravityController.cs" />
+    <Compile Include="Assets\CarpetaCheva\OscilacionX.cs" />
     <Compile Include="Assets\CarpetaOsmar\Scripts\GeneradorFragmentos.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
