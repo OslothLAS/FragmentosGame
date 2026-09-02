@@ -11,10 +11,6 @@ public class ProyectarUVFragmento : MonoBehaviour
     [Tooltip("Marcá esto si tus piezas están acostadas sobre el tablero (Ejes X y Z). Desmarcalo si están paradas (Ejes X e Y).")]
     public bool proyectarEnXZ = true;
 
-    void Start()
-    {
-        BakeUVs();
-    }
 
     [ContextMenu("Proyectar UVs Ahora (Para probar en el Editor)")]
     public void BakeUVs()

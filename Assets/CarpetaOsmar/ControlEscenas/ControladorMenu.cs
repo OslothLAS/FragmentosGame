@@ -3,52 +3,73 @@ using UnityEngine.SceneManagement;
 
 public class ControladorMenu : MonoBehaviour
 {
-    // Variable estática para recordar el nivel al cambiar de escena
     public static int nivelSeleccionado = 0;
 
+    // --- NUEVA VARIABLE ESTÁTICA ---
+    public static bool debeAnimarCamaraAlIniciar = false;
+
     [Header("Configuración de Niveles")]
-    [Tooltip("El nombre exacto de tu escena de juego")]
     public string nombreEscenaJuego = "Enviroment_main";
 
-    [Header("Interfaz de Usuario")]
-    [Tooltip("Arrastrá acá el Panel que contiene los créditos")]
+    [Header("Paneles de la Interfaz")]
+    public GameObject panelMenuPrincipal;
+    public GameObject panelSeleccionNiveles;
     public GameObject panelCreditos;
+    public GameObject panelControles;
 
     void Start()
     {
 
-        if (panelCreditos != null)
-        {
-            panelCreditos.SetActive(false);
-        }
+        MostrarMenuPrincipal();
     }
 
-    // --- LÓGICA DE NIVELES (Botones 1 al 6) ---
+    // --- FUNCIÓN INDEPENDIENTE PARA LA CÁMARA ---
+    public void IniciarAnimacionCamara()
+    {
+        // Encendemos la bandera. La animación ocurrirá cuando cargue la otra escena.
+        debeAnimarCamaraAlIniciar = true;
+    }
+
+    // --- NAVEGACIÓN ENTRE PANTALLAS ---
+    public void IrASeleccionNiveles()
+    {
+        if (panelMenuPrincipal != null) panelMenuPrincipal.SetActive(false);
+        if (panelSeleccionNiveles != null) panelSeleccionNiveles.SetActive(true);
+        if (panelCreditos != null) panelCreditos.SetActive(false);
+        if (panelControles != null) panelControles.SetActive(false);
+    }
+
+    public void MostrarMenuPrincipal()
+    {
+        if (panelMenuPrincipal != null) panelMenuPrincipal.SetActive(true);
+        if (panelSeleccionNiveles != null) panelSeleccionNiveles.SetActive(false);
+        if (panelCreditos != null) panelCreditos.SetActive(false);
+        if (panelControles != null) panelControles.SetActive(false);
+    }
+
     public void SeleccionarYCargarNivel(int indiceNivel)
     {
         nivelSeleccionado = indiceNivel;
         SceneManager.LoadScene(nombreEscenaJuego);
     }
 
-    // --- LÓGICA DE CRÉDITOS (7mo Botón y Botón de Cerrar) ---
-
     public void AbrirCreditos()
     {
-        if (panelCreditos != null)
-        {
-            panelCreditos.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning("Falta asignar el Panel de Créditos en el Inspector.");
-        }
+        if (panelCreditos != null) panelCreditos.SetActive(true);
     }
 
     public void CerrarCreditos()
     {
-        if (panelCreditos != null)
-        {
-            panelCreditos.SetActive(false);
-        }
+        if (panelCreditos != null) panelCreditos.SetActive(false);
+    }
+
+    public void AbrirControles()
+    {
+        if (panelControles != null) panelControles.SetActive(true);
+    }
+
+    public void CerrarControles()
+    {
+        if (panelControles != null) panelControles.SetActive(false);
     }
 }

@@ -155,14 +155,14 @@ Material:
     - _ZWriteControl: 0
     - _main_noise: 10
     - _noise2n: 20
-    - _noise_Scale: 57.4
+    - _noise_Scale: 66.8
     - _normal_intensity: 0.001
     - _parallax: 3.33
     - _parallax_BG: 1100.8
     - _parallax_Gameplay: 0
     - _particles_variation: 10
     - _power: 2
-    - _specular: 0.01
+    - _specular: 0.001
     - _tiling_multiply: 1.19
     - _wind_speed2_offset: -0.2
     - _wind_speed_base: 1

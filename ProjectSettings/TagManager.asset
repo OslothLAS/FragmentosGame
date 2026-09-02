@@ -14,6 +14,8 @@ TagManager:
   - Vela
   - Puerta
   - Limite
+  - Enemigo
+  - Agua
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Water
   - UI
   - RenderAlpha
-  - 
+  - Agua
   - 
   - 
   - 

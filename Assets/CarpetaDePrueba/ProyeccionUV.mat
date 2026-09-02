@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _FondoNivel:
-        m_Texture: {fileID: 2800000, guid: a31e5b0fcc564b84983a1c9d9dd0c72b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8bc4c49f067691247b191110fb13d91d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMapping_aac1fed14b564803917c036212f9dee9_Heightmap_1_Texture2D:
@@ -64,6 +64,7 @@ Material:
     - _QueueControl: 0
     - _main_noise: 29
     - _noise2n: 11.2
+    - _normal_intensity: 0.001
     - _parallax_BG: 52
     - _parallax_Gameplay: 5
     - _particles_variation: 2
