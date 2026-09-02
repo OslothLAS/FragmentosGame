@@ -16,7 +16,8 @@ public class InvertedGravityController2D : MonoBehaviour
     private Dictionary<Transform, Quaternion> memoriaRotaciones = new Dictionary<Transform, Quaternion>();
 
     [Header("Mecánica de Inclinación")]
-    public float margenGrados = 20f;
+    [Tooltip("Si la inclinación es menor a este ángulo, la gravedad apuntará directo abajo. Puedes bajarlo a 0.")]
+    public float margenGrados = 2f;
     public bool invertirGravedadX = false;
     public bool invertirGravedadY = false;
 
@@ -37,6 +38,8 @@ public class InvertedGravityController2D : MonoBehaviour
     [Header("Animación y Visuales")]
     public Animator animator;
     public SpriteRenderer spriteRenderer;
+    [Tooltip("Qué tan rápido se acomoda el personaje al ángulo del suelo (Rotación progresiva)")]
+    public float velocidadRotacionSprite = 10f; // <--- NUEVA VARIABLE PARA CONTROLAR LA SUAVIDAD
 
     [Header("Vectores Dinámicos")]
     public Vector2 vectorGravedad = Vector2.down;
@@ -48,6 +51,9 @@ public class InvertedGravityController2D : MonoBehaviour
     private bool enEscalera;
     private bool escalando;
     private Quaternion rotacionSpriteInicial;
+
+    // Variables de herencia de velocidad para plataformas móviles
+    private Vector2 velocidadPlataforma = Vector2.zero;
 
     void Start()
     {
@@ -62,7 +68,6 @@ public class InvertedGravityController2D : MonoBehaviour
         todosLosDetectores = Object.FindObjectsByType<DetectorUV>(FindObjectsInactive.Exclude);
 
         // --- FOTOGRAFÍA INICIAL ---
-        // Guardamos la rotación exacta de cada fragmento al arrancar el juego
         foreach (DetectorUV detector in todosLosDetectores)
         {
             memoriaRotaciones.Add(detector.transform, detector.transform.rotation);
@@ -112,7 +117,6 @@ public class InvertedGravityController2D : MonoBehaviour
 
                 if (scriptArrastre != null && scriptArrastre.EstaSiendoManipulada) return;
 
-                // Ahora calculamos la rotación internamente sin depender de otros scripts
                 CalcularNuevaGravedad(fragmentoActual);
 
                 break;
@@ -126,58 +130,45 @@ public class InvertedGravityController2D : MonoBehaviour
         }
     }
 
-    // --- EL CEREBRO MATEMÁTICO 3D A 2D ---
     private void CalcularNuevaGravedad(Transform fragmento)
     {
-        // 1. Recuperamos cómo estaba la pieza al principio
         Quaternion rotacionOriginal = memoriaRotaciones[fragmento];
         Vector3 ejeLocalDerecha = Quaternion.Inverse(rotacionOriginal) * Vector3.right;
         Quaternion diferenciaRotacion = fragmento.rotation * Quaternion.Inverse(rotacionOriginal);
 
-        // 2. ¿Hacia dónde apunta ahora la Derecha de la pieza?
         Vector3 derechaActual = fragmento.rotation * ejeLocalDerecha;
-        derechaActual.y = 0; // Lo aplanamos contra la mesa
+        derechaActual.y = 0;
         if (derechaActual.sqrMagnitude > 0.001f) derechaActual.Normalize();
 
-        // 3. Medimos el ángulo de giro en la mesa
         float anguloY = Vector3.SignedAngle(Vector3.right, derechaActual, Vector3.up);
 
-        // 4. Detector de Panqueque (¿Lo dimos vuelta boca abajo?)
         Vector3 normalRelativa = diferenciaRotacion * Vector3.up;
         if (normalRelativa.y < 0)
         {
-            anguloY = -anguloY; // Invertimos la lectura
+            anguloY = -anguloY;
         }
 
-        // 5. Traducción a 2D (Por defecto la gravedad cae hacia abajo)
-        Vector2 nuevaGravedad = Vector2.down;
-
-        if (Mathf.Abs(anguloY) > margenGrados)
+        if (Mathf.Abs(anguloY) <= margenGrados)
         {
-            if (anguloY > margenGrados && anguloY <= 135f) nuevaGravedad = Vector2.left;
-            else if (anguloY < -margenGrados && anguloY >= -135f) nuevaGravedad = Vector2.right;
-            else if (Mathf.Abs(anguloY) > 135f) nuevaGravedad = Vector2.up;
+            anguloY = 0f;
         }
 
-        // Pasamos el resultado a la función original que maneja las inversiones
+        float anguloRadianes = anguloY * Mathf.Deg2Rad;
+
+        float gravedadX = -Mathf.Sin(anguloRadianes);
+        float gravedadY = -Mathf.Cos(anguloRadianes);
+
+        Vector2 nuevaGravedad = new Vector2(gravedadX, gravedadY).normalized;
+
         AplicarGravedad(nuevaGravedad, fragmento.name);
     }
 
     private void AplicarGravedad(Vector2 nuevaGravedad, string nombrePieza)
     {
-        if (invertirGravedadX)
-        {
-            if (nuevaGravedad == Vector2.left) nuevaGravedad = Vector2.right;
-            else if (nuevaGravedad == Vector2.right) nuevaGravedad = Vector2.left;
-        }
+        if (invertirGravedadX) nuevaGravedad.x = -nuevaGravedad.x;
+        if (invertirGravedadY) nuevaGravedad.y = -nuevaGravedad.y;
 
-        if (invertirGravedadY)
-        {
-            if (nuevaGravedad == Vector2.down) nuevaGravedad = Vector2.up;
-            else if (nuevaGravedad == Vector2.up) nuevaGravedad = Vector2.down;
-        }
-
-        if (vectorGravedad != nuevaGravedad)
+        if (Vector2.Distance(vectorGravedad, nuevaGravedad) > 0.01f)
         {
             Debug.Log($"<color=green>[Gravedad] Cambio de gravedad UV en {nombrePieza}! Dirección: {nuevaGravedad}</color>");
         }
@@ -194,15 +185,18 @@ public class InvertedGravityController2D : MonoBehaviour
 
         if (enEscalera && Mathf.Abs(inputVertical) > 0.1f) escalando = true;
 
-        float velLateralActual = Vector2.Dot(rb.linearVelocity, vectorDerecha);
-        float velCaidaActual = Vector2.Dot(rb.linearVelocity, vectorGravedad);
+        Vector2 velocidadRelativa = rb.linearVelocity - velocidadPlataforma;
+
+        float velLateralActual = Vector2.Dot(velocidadRelativa, vectorDerecha);
+        float velCaidaActual = Vector2.Dot(velocidadRelativa, vectorGravedad);
 
         if (escalando)
         {
             float nuevaVelSalto = inputVertical * velocidadEscalada;
             float velObjetivoX = inputHorizontal * velocidadMax;
             float nuevaVelLateral = Mathf.MoveTowards(velLateralActual, velObjetivoX, aceleracionAire * Time.fixedDeltaTime);
-            rb.linearVelocity = (vectorDerecha * nuevaVelLateral) + (vectorSalto * nuevaVelSalto);
+
+            rb.linearVelocity = (vectorDerecha * nuevaVelLateral) + (vectorSalto * nuevaVelSalto) + velocidadPlataforma;
         }
         else
         {
@@ -211,7 +205,8 @@ public class InvertedGravityController2D : MonoBehaviour
             if (Mathf.Abs(inputHorizontal) < 0.01f) tasaDeCambio = estaEnSuelo ? desaceleracionSuelo : desaceleracionAire;
 
             float nuevaVelLateral = Mathf.MoveTowards(velLateralActual, targetSpeed, tasaDeCambio * Time.fixedDeltaTime);
-            rb.linearVelocity = (vectorDerecha * nuevaVelLateral) + (vectorGravedad * velCaidaActual);
+
+            rb.linearVelocity = (vectorDerecha * nuevaVelLateral) + (vectorGravedad * velCaidaActual) + velocidadPlataforma;
         }
     }
 
@@ -220,27 +215,40 @@ public class InvertedGravityController2D : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && (estaEnSuelo || escalando))
         {
             escalando = false;
-            float velLateralActual = Vector2.Dot(rb.linearVelocity, vectorDerecha);
-            rb.linearVelocity = vectorDerecha * velLateralActual;
+
+            Vector2 velocidadRelativa = rb.linearVelocity - velocidadPlataforma;
+            float velLateralActual = Vector2.Dot(velocidadRelativa, vectorDerecha);
+
+            rb.linearVelocity = (vectorDerecha * velLateralActual) + velocidadPlataforma;
             rb.AddForce(vectorSalto * fuerzaSalto, ForceMode2D.Impulse);
+
             estaEnSuelo = false;
+            velocidadPlataforma = Vector2.zero;
         }
     }
 
     private void ManejarAnimacionesVisuales()
     {
-        float velLateral = Vector2.Dot(rb.linearVelocity, vectorDerecha);
-        animator.SetFloat("Movement", Mathf.Abs(velLateral));
+        float inputHorizontal = Input.GetAxisRaw("Horizontal");
+
+        animator.SetFloat("Movement", Mathf.Abs(inputHorizontal));
         animator.SetBool("ensuelo", estaEnSuelo);
 
-        float inputHorizontal = Input.GetAxisRaw("Horizontal");
         if (inputHorizontal > 0.01f) spriteRenderer.flipX = false;
         else if (inputHorizontal < -0.01f) spriteRenderer.flipX = true;
 
         if (spriteRenderer != null)
         {
-            if (vectorGravedad == Vector2.up) spriteRenderer.transform.localRotation = rotacionSpriteInicial * Quaternion.Euler(0f, 0f, 180f);
-            else spriteRenderer.transform.localRotation = rotacionSpriteInicial;
+            // Calculamos hacia dónde DEBERÍA estar mirando
+            float anguloZ = Mathf.Atan2(vectorSalto.y, vectorSalto.x) * Mathf.Rad2Deg - 90f;
+            Quaternion rotacionObjetivo = rotacionSpriteInicial * Quaternion.Euler(0f, 0f, anguloZ);
+
+            // FIX: Rotamos hacia el objetivo progresivamente en vez de hacerlo de golpe
+            spriteRenderer.transform.localRotation = Quaternion.Slerp(
+                spriteRenderer.transform.localRotation,
+                rotacionObjetivo,
+                velocidadRotacionSprite * Time.deltaTime
+            );
         }
     }
 
@@ -251,8 +259,26 @@ public class InvertedGravityController2D : MonoBehaviour
             if (Vector2.Dot(contacto.normal, vectorSalto) > 0.5f)
             {
                 estaEnSuelo = true;
+
+                MovimientoVaiven plataforma = collision.gameObject.GetComponent<MovimientoVaiven>();
+                if (plataforma != null)
+                {
+                    velocidadPlataforma = plataforma.VelocidadActual;
+                }
+                else
+                {
+                    velocidadPlataforma = Vector2.zero;
+                }
                 return;
             }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<MovimientoVaiven>() != null)
+        {
+            velocidadPlataforma = Vector2.zero;
         }
     }
 

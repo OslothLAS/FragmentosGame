@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FondoNivel:
-        m_Texture: {fileID: 2800000, guid: 8bc4c49f067691247b191110fb13d91d, type: 3}
+        m_Texture: {fileID: 2800000, guid: f4e5a6ccfe519fb4991530ae6c762ef3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -85,7 +85,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_6dfd16f4bb6a417fb09b1e87fa83722b_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 8bc4c49f067691247b191110fb13d91d, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -170,7 +170,7 @@ Material:
     - _wind_speed_particles: -0.1
     m_Colors:
     - _BG_Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _BG_Scale: {r: 1, g: 1, b: 0, a: 0}
+    - _BG_Scale: {r: 0, g: 0, b: 0, a: 0}
     - _BG_color_correction: {r: 0, g: 0, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

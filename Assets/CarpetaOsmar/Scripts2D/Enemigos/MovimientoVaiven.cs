@@ -1,45 +1,65 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class MovimientoVaiven : MonoBehaviour
 {
-    [Header("Dirección del Movimiento")]
-    [Tooltip("Activalo para que se mueva de lado a lado")]
-    public bool moverHorizontal = true;
+    public enum ModoActivacion { SiempreActivo, RequiereBoton }
 
-    [Tooltip("Activalo para que se mueva de arriba hacia abajo")]
+    [Header("Condición de Movimiento")]
+    [Tooltip("SiempreActivo ignora los botones. RequiereBoton lee el canal seleccionado.")]
+    public ModoActivacion modo = ModoActivacion.SiempreActivo;
+
+    [Tooltip("Si elegiste RequiereBoton, ¿qué canal debe estar activo?")]
+    public BotonDePiso.CanalBoton canalRequerido = BotonDePiso.CanalBoton.Canal1;
+
+    [Header("Dirección del Movimiento")]
+    public bool moverHorizontal = true;
     public bool moverVertical = false;
-    // Si ambos están activos, se moverá en diagonal a 45 grados.
 
     [Header("Ajustes de Velocidad y Distancia")]
     public float velocidad = 3f;
-    [Tooltip("Qué tan lejos llega antes de pegar la vuelta")]
-    public float distancia = 2f;
+    public float distancia = 120f;
 
-    private Vector3 posicionInicial;
-    private Vector3 vectorDireccion;
+    [Header("Depuración (Solo Lectura)")]
+    public bool estaActivo = false;
+
+    public Vector2 VelocidadActual { get; private set; }
+
+    private Vector2 posicionInicial;
+    private Vector2 vectorDireccion;
+    private Rigidbody2D rb;
+
+    // Usamos un tiempo interno para evitar teletransportes si la plataforma se detiene y arranca
+    private float tiempoInterno = 0f;
 
     void Start()
     {
-        // Guardamos el punto de origen
+        rb = GetComponent<Rigidbody2D>();
         posicionInicial = transform.position;
-
-        // Armamos la dirección base según lo que tildaste en el Inspector
-        vectorDireccion = Vector3.zero;
+        vectorDireccion = Vector2.zero;
 
         if (moverHorizontal) vectorDireccion.x = 1f;
         if (moverVertical) vectorDireccion.y = 1f;
-
-        // Normalizamos el vector. Esto asegura que si va en diagonal (1, 1), 
-        // la velocidad total siga siendo 1 y no se acelere.
         vectorDireccion.Normalize();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        // Mathf.Sin genera una onda que va de -1 a 1 fluidamente con el tiempo
-        float oscilacion = Mathf.Sin(Time.time * velocidad) * distancia;
+        // Actualiza la variable pública para que la veas en el Inspector
+        estaActivo = (modo == ModoActivacion.SiempreActivo) || BotonDePiso.EstadoCanales[canalRequerido];
 
-        // Actualizamos la posición sumando la oscilación en la dirección elegida
-        transform.position = posicionInicial + (vectorDireccion * oscilacion);
+        if (!estaActivo)
+        {
+            VelocidadActual = Vector2.zero;
+            return;
+        }
+
+        tiempoInterno += Time.fixedDeltaTime;
+
+        float oscilacion = Mathf.Sin(tiempoInterno * velocidad) * distancia;
+        Vector2 nuevaPos = posicionInicial + (vectorDireccion * oscilacion);
+
+        VelocidadActual = (nuevaPos - rb.position) / Time.fixedDeltaTime;
+        rb.MovePosition(nuevaPos);
     }
 }

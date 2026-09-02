@@ -231,10 +231,11 @@ public class GestorNivel : MonoBehaviour
         if (vidas > 0)
         {
             transform.position = posicionInicial;
-            Rigidbody rb = GetComponent<Rigidbody>();
+            // FIX: Cambiado de Rigidbody a Rigidbody2D porque el juego es 2D
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.linearVelocity = Vector3.zero;
+                rb.linearVelocity = Vector2.zero;
             }
         }
         else
@@ -243,7 +244,6 @@ public class GestorNivel : MonoBehaviour
         }
     }
 
-    // --- NUEVA RUTINA PARA EL PARPADEO ---
     private IEnumerator EfectoParpadeo()
     {
         esInvulnerable = true;
@@ -252,19 +252,16 @@ public class GestorNivel : MonoBehaviour
         {
             float tiempoFin = Time.time + tiempoInvulnerabilidad;
 
-            // Mientras no se acabe el tiempo, alternamos el renderer
             while (Time.time < tiempoFin)
             {
                 spritePersonaje.enabled = !spritePersonaje.enabled;
                 yield return new WaitForSeconds(velocidadParpadeo);
             }
 
-            // Nos aseguramos de que quede visible al terminar
             spritePersonaje.enabled = true;
         }
         else
         {
-            // Si te olvidás de asignar el SpriteRenderer, al menos espera el tiempo para evitar muertes múltiples
             yield return new WaitForSeconds(tiempoInvulnerabilidad);
         }
 
@@ -332,9 +329,24 @@ public class GestorNivel : MonoBehaviour
         }
     }
 
+    // --- ACÁ OCURRE LA MAGIA DEL GUARDADO ---
     public void SiguienteNivel()
     {
-        ControladorMenu.nivelSeleccionado++;
+        // 1. Calculamos cuál es el próximo nivel
+        int proximoNivel = ControladorMenu.nivelSeleccionado + 1;
+
+        // 2. Leemos hasta dónde habíamos llegado antes
+        int recordActual = PlayerPrefs.GetInt("NivelMaximoDesbloqueado", 0);
+
+        // 3. Si el próximo nivel es nuevo para el jugador, lo guardamos como su nuevo récord
+        if (proximoNivel > recordActual)
+        {
+            PlayerPrefs.SetInt("NivelMaximoDesbloqueado", proximoNivel);
+            PlayerPrefs.Save();
+        }
+
+        // 4. Pasamos al siguiente nivel
+        ControladorMenu.nivelSeleccionado = proximoNivel;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

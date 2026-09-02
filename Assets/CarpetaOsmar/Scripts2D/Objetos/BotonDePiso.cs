@@ -3,16 +3,34 @@ using System.Collections.Generic;
 
 public class BotonDePiso : MonoBehaviour
 {
+    // Definimos los canales disponibles
+    public enum CanalBoton { Canal1, Canal2, Canal3, Canal4, Canal5 }
+
+    // Memoria global compartida entre todos los scripts para leer el estado de los canales
+    public static Dictionary<CanalBoton, bool> EstadoCanales = new Dictionary<CanalBoton, bool>()
+    {
+        { CanalBoton.Canal1, false },
+        { CanalBoton.Canal2, false },
+        { CanalBoton.Canal3, false },
+        { CanalBoton.Canal4, false },
+        { CanalBoton.Canal5, false }
+    };
+
+    [Header("Comunicación")]
+    [Tooltip("¿A qué canal envía la señal este botón?")]
+    public CanalBoton canalAsignado = CanalBoton.Canal1;
+
     [Header("Configuración de Peso")]
-    [Tooltip("La masa mínima total (Rigidbody2D.mass) para que el botón baje al fondo.")]
     public float pesoRequerido = 5f;
 
-    [Header("Estado del Mecanismo (Lectura Pública)")]
-    [Tooltip("True únicamente cuando el botón bajó completamente. Úsalo desde otros scripts.")]
+    [Header("Estado del Mecanismo")]
     public bool presionadoDelTodo = false;
 
+    [Header("Debug")]
+    [Tooltip("Muestra en el Inspector si el canal de este botón está enviando señal")]
+    public bool canalActivado; // NUEVO BOOLEANO PARA VER EL ESTADO
+
     [Header("Movimiento del Sprite")]
-    [Tooltip("Arrastrá acá el GameObject HIJO que tiene el dibujo (SpriteRenderer) del botón.")]
     public Transform spriteDelBoton;
     public float yArriba = 0f;
     public float yMitad = -0.15f;
@@ -26,21 +44,32 @@ public class BotonDePiso : MonoBehaviour
     {
         if (spriteDelBoton == null)
         {
-            Debug.LogWarning("Falta asignar el Sprite en el script. Si se mueve todo el objeto, la física puede fallar.");
+            Debug.LogWarning("Falta asignar el Sprite en el script.");
             spriteDelBoton = transform;
         }
         objetivoY = yArriba;
+
+        // FIX: Encajamos el sprite en la posición inicial exacta de forma instantánea 
+        Vector3 posInicial = spriteDelBoton.localPosition;
+        posInicial.y = yArriba;
+        spriteDelBoton.localPosition = posInicial;
+
+        EstadoCanales[canalAsignado] = false;
     }
 
     void Update()
     {
-        // 1. Movimiento suave del SPRITE hacia abajo o arriba
         Vector3 posLocal = spriteDelBoton.localPosition;
         posLocal.y = Mathf.MoveTowards(posLocal.y, objetivoY, velocidadHundimiento * Time.deltaTime);
         spriteDelBoton.localPosition = posLocal;
 
-        // 2. Activamos el booleano si el sprite visualmente llegó al fondo
         presionadoDelTodo = Mathf.Abs(spriteDelBoton.localPosition.y - yAbajo) < 0.01f;
+
+        // Actualizamos el cerebro global con el estado actual de este botón
+        EstadoCanales[canalAsignado] = presionadoDelTodo;
+
+        // Reflejamos el estado en el booleano visible del Inspector
+        canalActivado = EstadoCanales[canalAsignado];
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -65,7 +94,6 @@ public class BotonDePiso : MonoBehaviour
 
     private void RecalcularPeso()
     {
-        // Limpiamos la lista por si destruiste una caja mientras estaba encima
         cuerposEncima.RemoveAll(rb => rb == null);
 
         if (cuerposEncima.Count == 0)
@@ -75,19 +103,9 @@ public class BotonDePiso : MonoBehaviour
         }
 
         float pesoActual = 0f;
-        foreach (Rigidbody2D rb in cuerposEncima)
-        {
-            pesoActual += rb.mass;
-        }
+        foreach (Rigidbody2D rb in cuerposEncima) pesoActual += rb.mass;
 
-        // Definimos hasta dónde tiene que bajar el sprite
-        if (pesoActual >= pesoRequerido)
-        {
-            objetivoY = yAbajo;
-        }
-        else
-        {
-            objetivoY = yMitad;
-        }
+        if (pesoActual >= pesoRequerido) objetivoY = yAbajo;
+        else objetivoY = yMitad;
     }
 }

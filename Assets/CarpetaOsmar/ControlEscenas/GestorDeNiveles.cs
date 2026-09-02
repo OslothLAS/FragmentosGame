@@ -7,21 +7,44 @@ public class GestorDeNiveles : MonoBehaviour
     [Tooltip("Arrastrá acá los 6 GameObjects en orden (del 0 al 5)")]
     public GameObject[] niveles;
 
+    [Header("Fondo Simple por Nivel")]
+    [Tooltip("El material que usa tu SG_GlassCanvas")]
+    public Material materialFondo;
+
+    [Tooltip("Arrastrá acá la imagen correspondiente a cada nivel")]
+    public Texture2D[] texturasDeFondo;
+
+    [Tooltip("El 'Reference' exacto de la textura en tu Shader Graph")]
+    public string referenciaTexturaShader = "_FondoNivel";
+
     [Header("Navegación")]
-    [Tooltip("El nombre exacto de tu escena del Menú Principal")]
     public string nombreEscenaMenu = "MenuPrincipal";
 
     void Start()
     {
+        // 1. Apagamos todos los niveles por seguridad
         foreach (GameObject nivel in niveles)
         {
             nivel.SetActive(false);
         }
+
+        // 2. Obtenemos el nivel elegido desde el menú
         int indice = ControladorMenu.nivelSeleccionado;
 
         if (indice >= 0 && indice < niveles.Length)
         {
+            // Prendemos solo el nivel correspondiente
             niveles[indice].SetActive(true);
+
+            // 3. Inyectamos SOLAMENTE la textura, sin cálculos de escala ni ajustes extra
+            if (materialFondo != null && indice < texturasDeFondo.Length)
+            {
+                if (texturasDeFondo[indice] != null)
+                {
+                    materialFondo.SetTexture(referenciaTexturaShader, texturasDeFondo[indice]);
+                }
+            }
+
             Debug.Log($"Se cargó exitosamente el nivel con índice: {indice}");
         }
         else
@@ -32,23 +55,15 @@ public class GestorDeNiveles : MonoBehaviour
 
     public void VolverAlMenu()
     {
-        Debug.Log("Volviendo al menú principal...");
-
-        // 1. Liberamos y mostramos el cursor ANTES de cambiar de escena
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
         SceneManager.LoadScene(nombreEscenaMenu);
     }
 
     public void ReiniciarNivel()
     {
-        Debug.Log("Reiniciando el nivel...");
-
-        // Hacemos lo mismo acá por si el jugador reinicia mientras rota una pieza
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -14,23 +14,24 @@ public class GravedadDinamicaRoca : MonoBehaviour
 
     [Header("Configuración de Gravedad y Velocidad")]
     public float fuerzaGravedad = 20f;
-    public float margenGrados = 20f;
 
-    // NUEVO: Límite de velocidad
+    [Tooltip("Si la inclinación es menor a este ángulo, la gravedad apuntará directo abajo. Ponlo en 0 para que la roca ruede con la más mínima inclinación.")]
+    public float margenGrados = 2f;
+
     [Tooltip("La velocidad máxima absoluta a la que puede viajar la roca.")]
     public float velocidadMaxima = 15f;
 
     public bool invertirGravedadX = false;
     public bool invertirGravedadY = false;
 
-    [Header("Giro Visual y Inercia")]
+    [Header("Giro Visual e Inercia")]
     [Tooltip("El objeto hijo que contiene el Sprite. Solo rotará la imagen.")]
     public Transform spriteVisual;
 
     [Tooltip("Multiplicador del giro.")]
     public float multiplicadorGiro = 150f;
 
-    [Tooltip("Qué tan rápido frena la bola por la resistencia general. Valores bajos (0.2 a 0.8) hacen que conserve mucho la inercia.")]
+    [Tooltip("Qué tan rápido frena la bola. Valores bajos (0.2 a 0.8) conservan mucho la inercia.")]
     public float inerciaFrenado = 0.4f;
 
     [Tooltip("Si la velocidad X es menor a esto, frena el giro visual para que no tiemble.")]
@@ -45,10 +46,7 @@ public class GravedadDinamicaRoca : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
-
-        // --- INERCIA SUAVE ---
         rb.linearDamping = inerciaFrenado;
-
         rb.freezeRotation = true;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
@@ -85,6 +83,7 @@ public class GravedadDinamicaRoca : MonoBehaviour
             }
 
             float giroVisual = velX * multiplicadorGiro;
+            // FIX: Le sacamos el signo negativo para que gire al revés (como lo tenías originalmente)
             spriteVisual.Rotate(0f, 0f, giroVisual * Time.deltaTime);
         }
     }
@@ -93,10 +92,10 @@ public class GravedadDinamicaRoca : MonoBehaviour
     {
         DetectarGravedadPorUV();
 
-        // 1. Aplicamos la gravedad constante
+        // Aplicamos la gravedad compuesta constante
         rb.AddForce(vectorGravedad * (fuerzaGravedad * rb.mass), ForceMode2D.Force);
 
-        // 2. NUEVO: Bloqueo estricto de velocidad máxima
+        // Bloqueo estricto de velocidad máxima
         if (rb.linearVelocity.magnitude > velocidadMaxima)
         {
             rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, velocidadMaxima);
@@ -154,31 +153,25 @@ public class GravedadDinamicaRoca : MonoBehaviour
             anguloY = -anguloY;
         }
 
-        Vector2 nuevaGravedad = Vector2.down;
-
-        if (Mathf.Abs(anguloY) > margenGrados)
+        if (Mathf.Abs(anguloY) <= margenGrados)
         {
-            if (anguloY > margenGrados && anguloY <= 135f) nuevaGravedad = Vector2.left;
-            else if (anguloY < -margenGrados && anguloY >= -135f) nuevaGravedad = Vector2.right;
-            else if (Mathf.Abs(anguloY) > 135f) nuevaGravedad = Vector2.up;
+            anguloY = 0f;
         }
+
+        float anguloRadianes = anguloY * Mathf.Deg2Rad;
+
+        float gravedadX = -Mathf.Sin(anguloRadianes);
+        float gravedadY = -Mathf.Cos(anguloRadianes);
+
+        Vector2 nuevaGravedad = new Vector2(gravedadX, gravedadY).normalized;
 
         AplicarGravedad(nuevaGravedad);
     }
 
     private void AplicarGravedad(Vector2 nuevaGravedad)
     {
-        if (invertirGravedadX)
-        {
-            if (nuevaGravedad == Vector2.left) nuevaGravedad = Vector2.right;
-            else if (nuevaGravedad == Vector2.right) nuevaGravedad = Vector2.left;
-        }
-
-        if (invertirGravedadY)
-        {
-            if (nuevaGravedad == Vector2.down) nuevaGravedad = Vector2.up;
-            else if (nuevaGravedad == Vector2.up) nuevaGravedad = Vector2.down;
-        }
+        if (invertirGravedadX) nuevaGravedad.x = -nuevaGravedad.x;
+        if (invertirGravedadY) nuevaGravedad.y = -nuevaGravedad.y;
 
         vectorGravedad = nuevaGravedad;
     }
