@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class MecanismoMovil2D : MonoBehaviour
 {
     [Header("Conexión con el Botón")]
@@ -16,27 +17,44 @@ public class MecanismoMovil2D : MonoBehaviour
     [Tooltip("Qué tan rápido se mueve el objeto")]
     public float velocidad = 5f;
 
-    private Vector3 posicionOriginal;
-    private Vector3 posicionDestino;
+    // --- NUEVO: Propiedad que lee el jugador para heredar la velocidad ---
+    public Vector2 VelocidadActual { get; private set; }
+
+    private Vector2 posicionOriginal;
+    private Vector2 posicionDestino;
+    private Rigidbody2D rb;
 
     void Start()
     {
-        // Guardamos dónde arranca el objeto
+        rb = GetComponent<Rigidbody2D>();
+
+        // Nos aseguramos de que sea Kinematic para que la gravedad no lo haga caer
+        rb.bodyType = RigidbodyType2D.Kinematic;
+
         posicionOriginal = transform.position;
 
-        // Calculamos matemáticamente su punto de llegada
         float direccion = moverHaciaAbajo ? -1f : 1f;
-        posicionDestino = posicionOriginal + new Vector3(0f, distancia * direccion, 0f);
+        posicionDestino = posicionOriginal + new Vector2(0f, distancia * direccion);
     }
 
-    void Update()
+    // Cambiamos Update por FixedUpdate para trabajar sincronizados con las físicas
+    void FixedUpdate()
     {
-        if (botonActivador == null) return;
+        if (botonActivador == null)
+        {
+            VelocidadActual = Vector2.zero;
+            return;
+        }
 
-        // Si el botón está pisado a fondo, el objetivo es la posición final. Si no, es la original.
-        Vector3 objetivoActual = botonActivador.presionadoDelTodo ? posicionDestino : posicionOriginal;
+        Vector2 objetivoActual = botonActivador.presionadoDelTodo ? posicionDestino : posicionOriginal;
 
-        // Movemos el objeto paso a paso hacia el objetivo
-        transform.position = Vector3.MoveTowards(transform.position, objetivoActual, velocidad * Time.deltaTime);
+        // Calculamos cuál va a ser la nueva posición este frame
+        Vector2 nuevaPosicion = Vector2.MoveTowards(rb.position, objetivoActual, velocidad * Time.fixedDeltaTime);
+
+        // Calculamos la velocidad a la que nos estamos moviendo (Nueva Posición - Posición Actual)
+        VelocidadActual = (nuevaPosicion - rb.position) / Time.fixedDeltaTime;
+
+        // Movemos el objeto físicamente
+        rb.MovePosition(nuevaPosicion);
     }
 }

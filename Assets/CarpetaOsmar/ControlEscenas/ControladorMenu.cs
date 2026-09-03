@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; // NECESARIO PARA USAR 'Button'
+using UnityEngine.UI;
+using TMPro;
 
 public class ControladorMenu : MonoBehaviour
 {
@@ -11,7 +12,11 @@ public class ControladorMenu : MonoBehaviour
     public string nombreEscenaJuego = "Enviroment_main";
 
     [Tooltip("Arrastra aquí los 6 BOTONES de la interfaz gráfica en orden (del Nivel 0 al 5)")]
-    public Button[] botonesDeNiveles; // <--- NUEVO: Para bloquear/desbloquear botones
+    public Button[] botonesDeNiveles;
+
+    [Header("Botón Principal (Jugar / Continuar)")]
+    [Tooltip("Arrastra aquí el objeto de Texto (TextMeshPro) que está adentro de tu botón de Jugar")]
+    public TextMeshProUGUI textoBotonJugar;
 
     [Header("Paneles de la Interfaz")]
     public GameObject panelMenuPrincipal;
@@ -22,11 +27,51 @@ public class ControladorMenu : MonoBehaviour
     void Start()
     {
         MostrarMenuPrincipal();
+        ActualizarTextoBotonJugar(); // Chequeamos si debe decir Jugar o Continuar
+    }
+
+    public void JugarOContinuar()
+    {
+        // --- NUEVO LÓGICA DE ANIMACIÓN ---
+        // Si NO hay nivel guardado, es porque el botón dice "Jugar". Activamos la animación.
+        if (!PlayerPrefs.HasKey("UltimoNivelJugado"))
+        {
+            debeAnimarCamaraAlIniciar = true;
+        }
+        else
+        {
+            // Si ya hay nivel guardado, el botón dice "Continuar". Apagamos la animación por seguridad.
+            debeAnimarCamaraAlIniciar = false;
+        }
+
+        // Leemos el último nivel jugado. Si no existe (primera vez), arranca en 0
+        int nivelACargar = PlayerPrefs.GetInt("UltimoNivelJugado", 0);
+
+        SeleccionarYCargarNivel(nivelACargar);
+    }
+
+    private void ActualizarTextoBotonJugar()
+    {
+        if (textoBotonJugar != null)
+        {
+            if (PlayerPrefs.HasKey("UltimoNivelJugado"))
+            {
+                textoBotonJugar.text = "Continuar";
+            }
+            else
+            {
+                textoBotonJugar.text = "Jugar";
+            }
+        }
     }
 
     public void IniciarAnimacionCamara()
     {
-        debeAnimarCamaraAlIniciar = true;
+        // Le agregamos la misma validación por si seguís usando esta función suelta en algún botón
+        if (!PlayerPrefs.HasKey("UltimoNivelJugado"))
+        {
+            debeAnimarCamaraAlIniciar = true;
+        }
     }
 
     public void IrASeleccionNiveles()
@@ -36,7 +81,6 @@ public class ControladorMenu : MonoBehaviour
         if (panelCreditos != null) panelCreditos.SetActive(false);
         if (panelControles != null) panelControles.SetActive(false);
 
-        // --- NUEVO: Actualizamos qué botones están bloqueados antes de mostrarlos ---
         ActualizarBloqueoDeBotones();
     }
 
@@ -51,35 +95,57 @@ public class ControladorMenu : MonoBehaviour
     public void SeleccionarYCargarNivel(int indiceNivel)
     {
         nivelSeleccionado = indiceNivel;
+
+        PlayerPrefs.SetInt("UltimoNivelJugado", indiceNivel);
+        PlayerPrefs.Save();
+
         SceneManager.LoadScene(nombreEscenaJuego);
     }
 
     private void ActualizarBloqueoDeBotones()
     {
-        // Leemos hasta qué nivel llegó el jugador (por defecto 0 si es la primera vez que juega)
         int nivelMaximoDesbloqueado = PlayerPrefs.GetInt("NivelMaximoDesbloqueado", 0);
 
         for (int i = 0; i < botonesDeNiveles.Length; i++)
         {
             if (botonesDeNiveles[i] != null)
             {
-                // Si el índice del botón es menor o igual al nivel desbloqueado, se puede hacer click
                 botonesDeNiveles[i].interactable = (i <= nivelMaximoDesbloqueado);
             }
         }
     }
 
-    // --- FUNCIONES EXTRA ---
     public void AbrirCreditos() { if (panelCreditos != null) panelCreditos.SetActive(true); }
     public void CerrarCreditos() { if (panelCreditos != null) panelCreditos.SetActive(false); }
     public void AbrirControles() { if (panelControles != null) panelControles.SetActive(true); }
     public void CerrarControles() { if (panelControles != null) panelControles.SetActive(false); }
 
-    // Función útil por si quieres poner un botón de "Borrar Progreso" en opciones
+
+    // ==========================================
+    // HERRAMIENTAS DE DESARROLLADOR (DEV TOOLS)
+    // ==========================================
+
     public void BorrarProgreso()
     {
         PlayerPrefs.DeleteKey("NivelMaximoDesbloqueado");
+        PlayerPrefs.DeleteKey("UltimoNivelJugado");
+
         ActualizarBloqueoDeBotones();
-        Debug.Log("Progreso borrado. Todos los niveles bloqueados excepto el 0.");
+        ActualizarTextoBotonJugar();
+
+        Debug.Log("<color=red>[DEV]</color> Progreso borrado. Todos los niveles bloqueados excepto el 0.");
+    }
+
+    public void DesbloquearTodosLosNiveles()
+    {
+        // Desbloqueamos hasta el último índice de tu arreglo de botones
+        int nivelMaximo = botonesDeNiveles.Length - 1;
+
+        PlayerPrefs.SetInt("NivelMaximoDesbloqueado", nivelMaximo);
+        PlayerPrefs.Save();
+
+        ActualizarBloqueoDeBotones();
+
+        Debug.Log("<color=green>[DEV]</color> ¡Truco activado! Todos los niveles desbloqueados.");
     }
 }

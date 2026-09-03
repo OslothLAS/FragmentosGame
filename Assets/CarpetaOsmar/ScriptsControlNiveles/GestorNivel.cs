@@ -329,7 +329,6 @@ public class GestorNivel : MonoBehaviour
         }
     }
 
-    // --- ACÁ OCURRE LA MAGIA DEL GUARDADO ---
     public void SiguienteNivel()
     {
         // 1. Calculamos cuál es el próximo nivel
@@ -342,8 +341,13 @@ public class GestorNivel : MonoBehaviour
         if (proximoNivel > recordActual)
         {
             PlayerPrefs.SetInt("NivelMaximoDesbloqueado", proximoNivel);
-            PlayerPrefs.Save();
         }
+
+        // --- ARREGLO: GUARDAMOS ESTE NUEVO NIVEL COMO EL "ÚLTIMO JUGADO" ---
+        PlayerPrefs.SetInt("UltimoNivelJugado", proximoNivel);
+
+        // Guardamos todo en la memoria del dispositivo
+        PlayerPrefs.Save();
 
         // 4. Pasamos al siguiente nivel
         ControladorMenu.nivelSeleccionado = proximoNivel;
