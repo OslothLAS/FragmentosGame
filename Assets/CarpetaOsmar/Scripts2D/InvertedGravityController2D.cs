@@ -39,7 +39,11 @@ public class InvertedGravityController2D : MonoBehaviour
     public Animator animator;
     public SpriteRenderer spriteRenderer;
     [Tooltip("Qué tan rápido se acomoda el personaje al ángulo del suelo (Rotación progresiva)")]
-    public float velocidadRotacionSprite = 10f; // <--- NUEVA VARIABLE PARA CONTROLAR LA SUAVIDAD
+    public float velocidadRotacionSprite = 10f;
+
+    [Header("Audio")] // <--- NUEVA SECCIÓN DE AUDIO
+    public AudioSource sourceCorrer;
+    public AudioSource sourceSalto;
 
     [Header("Vectores Dinámicos")]
     public Vector2 vectorGravedad = Vector2.down;
@@ -78,6 +82,7 @@ public class InvertedGravityController2D : MonoBehaviour
     {
         ManejarSalto();
         ManejarAnimacionesVisuales();
+        ManejarAudio(); // <--- LLAMAMOS A LA LÓGICA DE AUDIO
     }
 
     void FixedUpdate()
@@ -224,6 +229,12 @@ public class InvertedGravityController2D : MonoBehaviour
 
             estaEnSuelo = false;
             velocidadPlataforma = Vector2.zero;
+
+            // <--- REPRODUCIR SONIDO DE SALTO
+            if (sourceSalto != null)
+            {
+                sourceSalto.Play();
+            }
         }
     }
 
@@ -239,16 +250,43 @@ public class InvertedGravityController2D : MonoBehaviour
 
         if (spriteRenderer != null)
         {
-            // Calculamos hacia dónde DEBERÍA estar mirando
             float anguloZ = Mathf.Atan2(vectorSalto.y, vectorSalto.x) * Mathf.Rad2Deg - 90f;
             Quaternion rotacionObjetivo = rotacionSpriteInicial * Quaternion.Euler(0f, 0f, anguloZ);
 
-            // FIX: Rotamos hacia el objetivo progresivamente en vez de hacerlo de golpe
             spriteRenderer.transform.localRotation = Quaternion.Slerp(
                 spriteRenderer.transform.localRotation,
                 rotacionObjetivo,
                 velocidadRotacionSprite * Time.deltaTime
             );
+        }
+    }
+
+    // <--- NUEVO MÉTODO PARA GESTIONAR EL AUDIO AL CORRER
+    private void ManejarAudio()
+    {
+        float inputHorizontal = Input.GetAxisRaw("Horizontal");
+
+        if (sourceCorrer != null)
+        {
+            // Solo debe sonar si está tocando el suelo, no está escalando y está apretando A o D
+            bool intentandoCorrer = estaEnSuelo && !escalando && Mathf.Abs(inputHorizontal) > 0.1f;
+
+            if (intentandoCorrer)
+            {
+                // Si cumple las condiciones y NO estaba sonando, lo reproducimos
+                if (!sourceCorrer.isPlaying)
+                {
+                    sourceCorrer.Play();
+                }
+            }
+            else
+            {
+                // Si soltó la tecla o saltó y estaba sonando, lo frenamos
+                if (sourceCorrer.isPlaying)
+                {
+                    sourceCorrer.Stop();
+                }
+            }
         }
     }
 

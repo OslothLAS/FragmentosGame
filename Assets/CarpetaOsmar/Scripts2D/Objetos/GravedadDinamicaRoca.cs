@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(AudioSource))] // Modificado para requerir AudioSource
 public class GravedadDinamicaRoca : MonoBehaviour
 {
     [Header("Detección por UV")]
@@ -37,8 +37,19 @@ public class GravedadDinamicaRoca : MonoBehaviour
     [Tooltip("Si la velocidad X es menor a esto, frena el giro visual para que no tiemble.")]
     public float umbralMovimiento = 0.02f;
 
+    [Header("Audio (Rodar)")]
+    [Tooltip("Clip de sonido que se reproducirá mientras la roca ruede")]
+    public AudioClip sonidoRodar;
+
+    [Tooltip("Volumen máximo que alcanzará el sonido al ir rápido")]
+    [Range(0f, 1f)] public float volumenMaximo = 1f;
+
+    [Tooltip("A qué velocidad debe ir la roca para que el sonido suene al máximo de su volumen")]
+    public float velocidadParaVolumenMaximo = 10f;
+
     private Vector2 vectorGravedad = Vector2.down;
     private Rigidbody2D rb;
+    private AudioSource audioSourceRoca;
 
     void Start()
     {
@@ -64,6 +75,22 @@ public class GravedadDinamicaRoca : MonoBehaviour
             Debug.LogWarning("Falta asignar el 'Sprite Visual' en el Inspector.");
         }
 
+        // Configuración inicial del Audio
+        audioSourceRoca = GetComponent<AudioSource>();
+        audioSourceRoca.playOnAwake = false; // Evitamos que suene de golpe al iniciar
+
+        if (sonidoRodar != null)
+        {
+            audioSourceRoca.clip = sonidoRodar;
+            audioSourceRoca.loop = true; // Fundamental para que el sonido no se corte
+            audioSourceRoca.volume = 0f;
+            audioSourceRoca.Play(); // Lo reproducimos silenciado y subiremos el volumen en el Update
+        }
+        else
+        {
+            Debug.LogWarning("Falta asignar el 'Sonido Rodar' en el Inspector.");
+        }
+
         todosLosDetectores = Object.FindObjectsByType<DetectorUV>(FindObjectsInactive.Exclude);
         foreach (DetectorUV detector in todosLosDetectores)
         {
@@ -73,18 +100,40 @@ public class GravedadDinamicaRoca : MonoBehaviour
 
     void Update()
     {
+        float velocidadActual = rb.linearVelocity.magnitude;
+        float velX = rb.linearVelocity.x;
+
+        if (Mathf.Abs(velX) < umbralMovimiento)
+        {
+            velX = 0f;
+        }
+
         if (spriteVisual != null)
         {
-            float velX = rb.linearVelocity.x;
-
-            if (Mathf.Abs(velX) < umbralMovimiento)
-            {
-                velX = 0f;
-            }
-
             float giroVisual = velX * multiplicadorGiro;
-            // FIX: Le sacamos el signo negativo para que gire al revés (como lo tenías originalmente)
             spriteVisual.Rotate(0f, 0f, giroVisual * Time.deltaTime);
+        }
+
+        // --- GESTIÓN DINÁMICA DEL AUDIO ---
+        if (audioSourceRoca != null && audioSourceRoca.isPlaying)
+        {
+            if (velocidadActual > umbralMovimiento)
+            {
+                // Calculamos qué porcentaje del volumen máximo deberíamos estar aplicando (0 a 1)
+                float porcentajeVolumen = Mathf.Clamp01(velocidadActual / velocidadParaVolumenMaximo);
+                float volumenObjetivo = porcentajeVolumen * volumenMaximo;
+
+                // Suavizamos la transición del volumen con Lerp para que no sea brusco
+                audioSourceRoca.volume = Mathf.Lerp(audioSourceRoca.volume, volumenObjetivo, Time.deltaTime * 10f);
+
+                // Opcional: Variamos ligeramente el pitch (tono) para dar sensación de pesadez al acelerar
+                audioSourceRoca.pitch = Mathf.Lerp(0.8f, 1.2f, porcentajeVolumen);
+            }
+            else
+            {
+                // Si la roca se detiene, bajamos el volumen a 0 suavemente
+                audioSourceRoca.volume = Mathf.Lerp(audioSourceRoca.volume, 0f, Time.deltaTime * 15f);
+            }
         }
     }
 

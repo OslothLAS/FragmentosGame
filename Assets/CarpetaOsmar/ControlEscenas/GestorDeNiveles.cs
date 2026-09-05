@@ -55,7 +55,6 @@ public class GestorDeNiveles : MonoBehaviour
 
     public void VolverAlMenu()
     {
-        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         SceneManager.LoadScene(nombreEscenaMenu);
     }

@@ -6,14 +6,10 @@ public class ControladorCursorNativo : MonoBehaviour
     public Texture2D cursorReposo;
     public Vector2 hotspot = Vector2.zero;
 
-    void Awake()
+    // Cambiamos a Start para darle tiempo al sistema de Input a inicializarse
+    void Start()
     {
-        Cursor.visible = true;
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-        Cursor.SetCursor(cursorReposo, hotspot, CursorMode.ForceSoftware);
-#else
         Cursor.SetCursor(cursorReposo, hotspot, CursorMode.Auto);
-#endif
     }
+
 }

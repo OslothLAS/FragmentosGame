@@ -22,7 +22,11 @@ public class GestorNivel : MonoBehaviour
     public SpriteRenderer spritePersonaje;
     public float tiempoInvulnerabilidad = 1.5f;
     public float velocidadParpadeo = 0.15f;
-    private bool esInvulnerable = false; // Evita perder múltiples vidas al instante
+    private bool esInvulnerable = false;
+
+    // --- NUEVO: PANTALLA DE DERROTA ---
+    [Header("Sistema de Derrota")]
+    public GameObject pantallaDerrota;
 
     public TextMeshProUGUI textoContador;
     public TextMeshProUGUI textoTiempoHUD;
@@ -53,9 +57,13 @@ public class GestorNivel : MonoBehaviour
 
     void Start()
     {
+        // Restauramos el tiempo por si venimos de un reinicio post-derrota
+        Time.timeScale = 1f;
+
         posicionInicial = transform.position;
 
         if (pantallaVictoria != null) pantallaVictoria.SetActive(false);
+        if (pantallaDerrota != null) pantallaDerrota.SetActive(false); // Apagamos derrota al inicio
         if (cartelClickDerecho != null) cartelClickDerecho.SetActive(false);
         if (cartelEntrarPuerta != null) cartelEntrarPuerta.SetActive(false);
 
@@ -189,7 +197,6 @@ public class GestorNivel : MonoBehaviour
                 if (cartelEntrarPuerta != null) cartelEntrarPuerta.SetActive(true);
             }
         }
-        // --- NUEVA LÓGICA DE ENEMIGO ---
         else if (other.CompareTag("Enemigo"))
         {
             if (!esInvulnerable)
@@ -231,7 +238,6 @@ public class GestorNivel : MonoBehaviour
         if (vidas > 0)
         {
             transform.position = posicionInicial;
-            // FIX: Cambiado de Rigidbody a Rigidbody2D porque el juego es 2D
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             if (rb != null)
             {
@@ -240,8 +246,38 @@ public class GestorNivel : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // En vez de recargar la escena de golpe, mostramos la pantalla
+            MostrarPantallaDerrota();
         }
+    }
+
+    // --- NUEVO: MOSTRAR GAME OVER ---
+    private void MostrarPantallaDerrota()
+    {
+
+        if (cartelClickDerecho != null) cartelClickDerecho.SetActive(false);
+        if (objetoNivel2 != null) objetoNivel2.SetActive(false);
+        if (objetoTutorial != null) objetoTutorial.SetActive(false);
+        if (objetoNivel4 != null) objetoNivel4.SetActive(false);
+
+        cronometroActivo = false;
+
+        if (pantallaDerrota != null)
+        {
+            pantallaDerrota.SetActive(true);
+        }
+
+        // Pausamos el tiempo para detener enemigos, físicas, etc.
+        Time.timeScale = 0f;
+
+
+    }
+
+    // --- NUEVO: REINICIAR NIVEL DESDE EL BOTÓN ---
+    public void ReiniciarNivel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private IEnumerator EfectoParpadeo()
@@ -308,9 +344,6 @@ public class GestorNivel : MonoBehaviour
 
             pantallaVictoria.SetActive(true);
 
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
             int minutos = Mathf.FloorToInt(tiempoTranscurrido / 60F);
             int segundos = Mathf.FloorToInt(tiempoTranscurrido % 60F);
 
@@ -331,25 +364,17 @@ public class GestorNivel : MonoBehaviour
 
     public void SiguienteNivel()
     {
-        // 1. Calculamos cuál es el próximo nivel
         int proximoNivel = ControladorMenu.nivelSeleccionado + 1;
-
-        // 2. Leemos hasta dónde habíamos llegado antes
         int recordActual = PlayerPrefs.GetInt("NivelMaximoDesbloqueado", 0);
 
-        // 3. Si el próximo nivel es nuevo para el jugador, lo guardamos como su nuevo récord
         if (proximoNivel > recordActual)
         {
             PlayerPrefs.SetInt("NivelMaximoDesbloqueado", proximoNivel);
         }
 
-        // --- ARREGLO: GUARDAMOS ESTE NUEVO NIVEL COMO EL "ÚLTIMO JUGADO" ---
         PlayerPrefs.SetInt("UltimoNivelJugado", proximoNivel);
-
-        // Guardamos todo en la memoria del dispositivo
         PlayerPrefs.Save();
 
-        // 4. Pasamos al siguiente nivel
         ControladorMenu.nivelSeleccionado = proximoNivel;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
